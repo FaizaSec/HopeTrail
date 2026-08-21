@@ -1,0 +1,224 @@
+.navbar {
+  width: 100%;
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 8%;
+  background-color: white;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.logo h2 {
+  margin: 0;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 30px;
+  color: #6a0dad;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 45px;
+}
+
+.links a {
+  text-decoration: none;
+  color: #292929;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.links a:hover {
+  color: #6a0dad;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+.sign-in {
+  padding: 12px 26px;
+
+  border: none;
+  border-radius: 25px;
+
+  background-color: #6a0dad;
+  color: white;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.sign-in:hover {
+  background-color: #520b86;
+}
+
+/* Dark background when sign-in panel opens */
+.dark-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 100;
+}
+
+/* Sign-in panel */
+.signin-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  width: 400px;
+  height: 100%;
+
+  background-color: white;
+  padding: 40px;
+
+  z-index: 101;
+}
+
+/* X button */
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  border: none;
+  background: none;
+
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Heading */
+.signin-panel h2 {
+  margin-top: 70px;
+  font-size: 28px;
+  color: #222;
+}
+
+/* Description */
+.signin-panel p {
+  margin-top: 20px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Container for the two buttons */
+.signin-options {
+  display: flex;
+  gap: 15px;
+
+  margin-top: 40px;
+}
+
+/* Both buttons */
+.create-account-button,
+.login-button {
+  flex: 1;
+
+  padding: 15px;
+
+  border-radius: 6px;
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+/* Create Account */
+.create-account-button {
+  background-color: #6500b8;
+  color: white;
+  border: 2px solid #6500b8;
+}
+
+/* Sign In */
+.login-button {
+  background-color: white;
+  color: #6500b8;
+  border: 2px solid #6500b8;
+}
+
+/* Create Account hover */
+.create-account-button:hover {
+  background-color: #4b008b;
+}
+
+/* Sign In hover */
+.login-button:hover {
+  background-color: #6500b8;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 16px;
+    height: auto;
+  }
+
+  .logo h2 {
+    font-size: 24px;
+  }
+
+  .links {
+    display: none;
+  }
+
+  .sign-in {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  /* Mobile sign-in panel */
+  .signin-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    padding: 30px 20px;
+    box-sizing: border-box;
+  }
+
+  .signin-panel h2 {
+    font-size: 24px;
+    margin-top: 60px;
+  }
+
+  .signin-panel p {
+    font-size: 15px;
+  }
+
+  .signin-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .create-account-button,
+  .login-button {
+    width: 100%;
+    flex: none;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+}

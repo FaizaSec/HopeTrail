@@ -1,0 +1,128 @@
+.hero {
+  width: 100%;
+  height: 500px;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  border-bottom: 12px solid #6a0dad;
+}
+
+.hero-content {
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 52px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.hero-content p {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.lower-section {
+  width: 100%;
+  height: 150px;
+  background-color: #f4f3f6;
+}
+
+.animal-cards {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+
+  transform: translateY(-80px);
+}
+
+.dog-card img,
+.cat-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.dog-card p,
+.cat-card p {
+  color: #555;
+  font-size: 18px;
+  margin: 10px 0 0;
+}
+
+.dog-card,
+.cat-card {
+  width: 220px;
+  height: 190px;
+
+  background-color: white;
+
+  border-radius: 8px;
+  text-decoration: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  /* Hero */
+  .hero {
+    height: 420px;
+    padding: 20px;
+    background-position: center;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .hero-content h1 {
+    font-size: 34px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-top: 18px;
+  }
+
+  /* Cards */
+  .animal-cards {
+    gap: 15px;
+  }
+
+  .dog-card,
+  .cat-card {
+    width: 160px;
+    height: 160px;
+  }
+
+  .dog-card img,
+  .cat-card img {
+    width: 75px;
+    height: 75px;
+  }
+
+  .dog-card p,
+  .cat-card p {
+    font-size: 16px;
+  }
+}
