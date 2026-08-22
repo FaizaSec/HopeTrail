@@ -13,10 +13,7 @@ const Row = ({ icon, children, wide }) => (
 );
 
 const Check = ({ label, value }) => (
-  <div className="ht-detail-row">
-    <span className={`ht-check-icon ${value ? "is-yes" : "is-no"}`}>
-      {value ? "✓" : "✕"}
-    </span>
+  <div className="ht-detail-row" style={{ paddingLeft: "30px" }}>
     <span>
       <strong>{label}:</strong> {value ? "Yes" : "No"}
     </span>
@@ -67,8 +64,8 @@ function PetDetails() {
             <div className="ht-profile-card">
               <h1 className="ht-details-name">About {pet.name}</h1>
               <hr className="ht-divider" />
-
               <p className="ht-section-title">Breed</p>
+
               <Row>
                 <strong>{pet.breed}</strong>
               </Row>
@@ -76,34 +73,35 @@ function PetDetails() {
               <p className="ht-section-title ht-section-spaced">
                 Physical Traits
               </p>
+
               <div className="ht-detail-grid">
                 <Row>
                   <strong>{pet.age}</strong>{" "}
                   <span className="ht-detail-sub">({pet.ageRange})</span>
                 </Row>
+
                 <Row>
                   <strong>{pet.gender}</strong>
                 </Row>
+
                 <Row>
                   <strong>{pet.size}</strong>{" "}
                   <span className="ht-detail-sub">({pet.weightRange})</span>
                 </Row>
               </div>
-
               <p className="ht-section-title ht-section-spaced">Behavior</p>
               <Row>
                 <strong>Personality</strong>
                 <br />
                 {pet.personality.join(", ")}
               </Row>
+
               <Check label="House-trained" value={pet.houseTrained} />
-
               <hr className="ht-divider ht-section-spaced" />
-
               <p className="ht-section-title">Health</p>
+
               <Check label="Spayed/Neutered" value={pet.spayedNeutered} />
               <Check label="Vaccinated" value={pet.vaccinated} />
-
               <button type="button" className="ht-adopt-btn ht-section-spaced">
                 Start {pet.name}'s adoption
               </button>
