@@ -1,6 +1,10 @@
 import { Link } from "react-router";
 import "./pages.css";
 
+import Miso from "../assets/miso.png";
+import Olive from "../assets/olive.png";
+import Luna from "../assets/luna.png";
+
 function CatsAndKittens() {
   return (
     <div className="pet-info-page">
@@ -35,9 +39,9 @@ function CatsAndKittens() {
         <div className="match-card">
 
           <div className="match-images">
-            <img src="/miso.png" alt="Cat" />
-            <img src="/olive.png" alt="Cat" />
-            <img src="/luna.png" alt="Cat" />
+            <img src={Miso} alt="Cat" />
+            <img src={Olive} alt="Cat" />
+            <img src={Luna} alt="Cat" />
           </div>
 
           <div className="match-content">

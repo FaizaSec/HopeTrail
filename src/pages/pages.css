@@ -304,19 +304,19 @@
 /* ================================
    DOGS & CATS INFORMATION PAGES
 ================================ */
+/* ===== DOGS & PUPPIES TOP SECTION ===== */
 
 .pet-info-page {
   background: #f5f4f7;
   min-height: 100vh;
-  padding: 0 32px 70px;
-  color: #222;
+  padding: 0 32px 50px;
 }
 
 .pet-breadcrumb {
-  padding: 18px 0 25px;
+  padding: 15px 0 25px;
   display: flex;
   gap: 10px;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .pet-breadcrumb a {
@@ -330,22 +330,20 @@
   margin: 0 0 55px;
 }
 
-/* ================================
-   INTRO + QUIZ
-================================ */
+/* Intro + Best Match */
 
 .pet-top-section {
   display: grid;
   grid-template-columns: 2.1fr 1fr;
   gap: 40px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .pet-intro {
   background: white;
   padding: 35px;
   border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
   font-size: 20px;
   line-height: 1.55;
 }
@@ -358,9 +356,7 @@
   margin-bottom: 0;
 }
 
-/* ================================
-   MATCH CARD
-================================ */
+/* Best Match Card */
 
 .match-card {
   background: #6500b8;
@@ -370,20 +366,19 @@
 }
 
 .match-images {
-  height: 155px;
+  height: 200px;
   background: white;
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  padding: 15px;
+  justify-content: space-around;
+  padding: 10px;
 }
 
 .match-images img {
-  width: 115px;
-  height: 115px;
+  width: 110px;
+  height: 110px;
   object-fit: cover;
   border-radius: 50%;
-  border: 5px solid white;
 }
 
 .match-content {
@@ -403,9 +398,10 @@
 
 .match-content a {
   display: block;
-  padding: 22px;
+  padding: 20px;
   color: white;
   text-decoration: none;
+  font-size: 17px;
   font-weight: bold;
   border-top: 1px solid #470080;
 }
@@ -414,139 +410,13 @@
   background: #57009c;
 }
 
-/* ================================
-   ARTICLE SECTIONS
-================================ */
 
-.article-section {
-  margin-top: 65px;
-}
-
-.section-heading {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  margin-bottom: 25px;
-}
-
-.section-heading h2 {
-  margin: 0;
-  font-size: 38px;
-  font-weight: 400;
-}
-
-.section-heading a {
-  color: #6500a8;
-  font-size: 17px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.article-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-}
-
-.article-card {
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
-}
-
-.article-card img {
-  width: 100%;
-  height: 210px;
-  display: block;
-  object-fit: cover;
-}
-
-.article-card-content {
-  padding: 20px;
-}
-
-.article-card-content p {
-  margin: 0 0 8px;
-  color: #6500a8;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.article-card-content h3 {
-  margin: 0;
-  font-size: 21px;
-  font-weight: 500;
-  line-height: 1.3;
-}
-
-/* ================================
-   SHELTER SEARCH
-================================ */
-
-.shelter-search {
-  background: white;
-  margin-top: 70px;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12);
-}
-
-.shelter-search h2 {
-  margin: 0 0 30px;
-  font-size: 30px;
-  font-weight: 400;
-}
-
-.search-fields {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 20px;
-  align-items: end;
-}
-
-.search-fields div {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.search-fields label {
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.search-fields input {
-  height: 48px;
-  padding: 0 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-}
-
-.search-fields button {
-  height: 48px;
-  padding: 0 30px;
-  border: none;
-  border-radius: 6px;
-  background: #6500b8;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.search-fields button:hover {
-  background: #4f008d;
-}
-
-/* ================================
-   BROWSER SHRINKING
-================================ */
+/* ===== WHEN YOU SHRINK THE BROWSER ===== */
 
 @media (max-width: 900px) {
 
   .pet-info-page {
-    padding: 0 20px 50px;
+    padding: 0 20px 40px;
   }
 
   .pet-info-page > h1 {
@@ -559,18 +429,6 @@
 
   .match-card {
     max-width: 500px;
-  }
-
-  .article-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .search-fields {
-    grid-template-columns: 1fr;
-  }
-
-  .search-fields button {
-    width: 100%;
   }
 }
 
@@ -586,28 +444,16 @@
     font-size: 17px;
   }
 
+  .match-images {
+    height: 150px;
+  }
+
   .match-images img {
-    width: 85px;
-    height: 85px;
+    width: 80px;
+    height: 80px;
   }
 
   .match-content h2 {
     font-size: 27px;
-  }
-
-  .section-heading {
-    gap: 12px;
-  }
-
-  .section-heading h2 {
-    font-size: 29px;
-  }
-
-  .article-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .shelter-search {
-    padding: 25px;
   }
 }
