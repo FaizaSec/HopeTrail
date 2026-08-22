@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router";
 import { fetchPetById } from "../data/petsData";
 import Navbar from "../Header-Footer/Navbar";
-import Footer from "../Header-Footer/Footer";
+//import Footer from "../Header-Footer/Footer";
 import "./Hopetrail.css";
 
 const Row = ({ icon, children, wide }) => (
@@ -28,7 +28,7 @@ function PetDetails() {
   if (!pet) {
     return (
       <>
-        <Navbar />
+        {/*<Navbar />*/}
         <div className="ht-page">
           <div className="ht-container ht-not-found">
             <h2>We couldn't find that pet on the trail.</h2>
@@ -37,14 +37,14 @@ function PetDetails() {
             </Link>
           </div>
         </div>
-        <Footer />
+        {/*<Footer />*/}
       </>
     );
   }
 
   return (
     <>
-      <Navbar />
+      {/*<Navbar />*/}
       <div className="ht-page">
         <div className="ht-container ht-details-header">
           <Link
@@ -109,7 +109,7 @@ function PetDetails() {
           </div>
         </div>
       </div>
-      <Footer />
+      {/*<Footer />*/}
     </>
   );
 }
