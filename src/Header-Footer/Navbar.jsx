@@ -70,17 +70,39 @@ function Navbar() {
         
         {/*All about pet by shova*/} 
         {/* ===== FROM SHOVA ===== */}
-          <button
-            className="about"
-            onClick={() => {
-              setAboutOpen(!aboutOpen);
-              setFindOpen(false);
-            }}
-          >
-            ALL ABOUT PETS {aboutOpen ? "⌃" : "⌄"}
-          </button>
+          {/* ===== FROM SHOVA ===== */}
+        <div className="about-section">
+  <button
+    className="about"
+    onClick={() => {
+      setAboutOpen(!aboutOpen);
+      setFindOpen(false);
+    }}
+  >
+    ALL ABOUT PETS {aboutOpen ? "⌃" : "⌄"}
+  </button>
+    {aboutOpen && (
+    <div className="mobile-ribbon">
+      <Link to="/adopt">
+        ADOPT OR GET INVOLVED
+      </Link>
 
-        </div>
+      <Link to="/dogs-and-puppies">
+        DOGS & PUPPIES
+      </Link>
+
+      <Link to="/cats-and-kittens">
+        CATS & KITTENS
+      </Link>
+
+      <Link to="/other-pets">
+        OTHER TYPES OF PETS
+      </Link>
+    </div>
+  )}
+</div>
+  
+</div>
 
         <div className="nav-actions">
           <button className="sign-in" onClick={() => setShowSignIn(true)}>
