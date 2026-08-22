@@ -1,13 +1,20 @@
 import "./Navbar.css";
+import Login from "../Home-Auth/Login.jsx";
+import SignUp from "../Home-Auth/SignUp.jsx";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router";//changed dom by shova
+import { Link, useLocation } from "react-router"; //changed dom by shova
 
 function Navbar() {
   const [showSignIn, setShowSignIn] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+  {
+    /*from faiza*/
+  }
+
   const [menuOpen, setMenuOpen] = useState(false);
 
-  
-   // ===== FROM SHOVA =====
+  // ===== FROM SHOVA =====
   const [aboutOpen, setAboutOpen] = useState(false);
   const [findOpen, setFindOpen] = useState(false);
 
@@ -24,10 +31,7 @@ function Navbar() {
   return (
     <>
       <nav className="navbar">
-        <button
-          className="menu-button"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
+        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </button>
         <div className="logo">
@@ -36,7 +40,7 @@ function Navbar() {
 
         {/*Shovar menu*/}
         <div className={`links ${menuOpen ? "menu-open" : ""}`}>
-           {/* ===== FROM SHOVA ===== */}
+          {/* ===== FROM SHOVA ===== */}
           <div className="nav-item">
             <button
               onClick={() => {
@@ -49,61 +53,45 @@ function Navbar() {
 
             {findOpen && (
               <div className="dropdown">
+                {/* ===== FROM SHOVA ===== */}
+                <Link to="/dogs-and-puppies">Dogs</Link>
 
                 {/* ===== FROM SHOVA ===== */}
-                <Link to="/dogs-and-puppies">
-                  Dogs
-                </Link>
+                <Link to="/cats-and-kittens">Cats</Link>
 
                 {/* ===== FROM SHOVA ===== */}
-                <Link to="/cats-and-kittens">
-                  Cats
-                </Link>
-
-                {/* ===== FROM SHOVA ===== */}
-                <Link to="/other-pets">
-                  Other Pets
-                </Link>
-
+                <Link to="/other-pets">Other Pets</Link>
               </div>
-            )}</div>
-        
-        {/*All about pet by shova*/} 
-        {/* ===== FROM SHOVA ===== */}
+            )}
+          </div>
+
+          {/*All about pet by shova*/}
           {/* ===== FROM SHOVA ===== */}
-        <div className="about-section">
-  <button
-    className="about"
-    onClick={() => {
-      setAboutOpen(!aboutOpen);
-      setFindOpen(false);
-    }}
-  >
-    ALL ABOUT PETS {aboutOpen ? "⌃" : "⌄"}
-  </button>
-    {aboutOpen && (
-    <div className="mobile-ribbon">
-      <Link to="/adopt">
-        ADOPT OR GET INVOLVED
-      </Link>
+          {/* ===== FROM SHOVA ===== */}
+          <div className="about-section">
+            <button
+              className="about"
+              onClick={() => {
+                setAboutOpen(!aboutOpen);
+                setFindOpen(false);
+              }}
+            >
+              ALL ABOUT PETS {aboutOpen ? "⌃" : "⌄"}
+            </button>
+            {aboutOpen && (
+              <div className="mobile-ribbon">
+                <Link to="/adopt">ADOPT OR GET INVOLVED</Link>
 
-      <Link to="/dogs-and-puppies">
-        DOGS & PUPPIES
-      </Link>
+                <Link to="/dogs-and-puppies">DOGS & PUPPIES</Link>
 
-      <Link to="/cats-and-kittens">
-        CATS & KITTENS
-      </Link>
+                <Link to="/cats-and-kittens">CATS & KITTENS</Link>
 
-      <Link to="/other-pets">
-        OTHER TYPES OF PETS
-      </Link>
-    </div>
-  )}
-</div>
-  
-</div>
-
+                <Link to="/other-pets">OTHER TYPES OF PETS</Link>
+              </div>
+            )}
+          </div>
+        </div>
+        {/*from faiza*/}
         <div className="nav-actions">
           <button className="sign-in" onClick={() => setShowSignIn(true)}>
             SIGN IN
@@ -114,26 +102,16 @@ function Navbar() {
       {/* ===== FROM SHOVA ===== */}
       {aboutOpen && (
         <div className="ribbon">
+          <Link to="/adopt">ADOPT OR GET INVOLVED</Link>
 
-          <Link to="/adopt">
-            ADOPT OR GET INVOLVED
-          </Link>
+          <Link to="/dogs-and-puppies">DOGS & PUPPIES</Link>
 
-          <Link to="/dogs-and-puppies">
-            DOGS & PUPPIES
-          </Link>
+          <Link to="/cats-and-kittens">CATS & KITTENS</Link>
 
-          <Link to="/cats-and-kittens">
-            CATS & KITTENS
-          </Link>
-
-          <Link to="/other-pets">
-            OTHER TYPES OF PETS
-          </Link>
-
+          <Link to="/other-pets">OTHER TYPES OF PETS</Link>
         </div>
       )}
-
+      {/*from faiza*/}
       {showSignIn && (
         <>
           <div
@@ -157,13 +135,31 @@ function Navbar() {
             </p>
 
             <div className="signin-options">
-              <button className="create-account-button">Create Account</button>
+              <button
+                className="create-account-button"
+                onClick={() => {
+                  setShowSignIn(false);
+                  setShowSignUp(true);
+                }}
+              >
+                Create Account
+              </button>
 
-              <button className="login-button">Sign In</button>
+              <button
+                className="login-button"
+                onClick={() => {
+                  setShowSignIn(false);
+                  setShowLogin(true);
+                }}
+              >
+                Sign In
+              </button>
             </div>
           </div>
         </>
       )}
+      {showLogin && <Login onClose={() => setShowLogin(false)} />}
+      {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
     </>
   );
 }
