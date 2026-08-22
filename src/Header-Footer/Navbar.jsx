@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router";//changed dom by shova
 
 function Navbar() {
   const [showSignIn, setShowSignIn] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   
    // ===== FROM SHOVA =====
@@ -17,17 +18,24 @@ function Navbar() {
   useEffect(() => {
     setAboutOpen(false);
     setFindOpen(false);
+    setMenuOpen(false);
   }, [location.pathname]);
 
   return (
     <>
       <nav className="navbar">
+        <button
+          className="menu-button"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
         <div className="logo">
           <h2>HopeTrail</h2>
         </div>
 
         {/*Shovar menu*/}
-        <div className="links">
+        <div className={`links ${menuOpen ? "menu-open" : ""}`}>
            {/* ===== FROM SHOVA ===== */}
           <div className="nav-item">
             <button
