@@ -3,13 +3,13 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import "./index.css";
 import App from "./App.jsx";
-import PetGrid from "./components/PetGrid.jsx";
-import PetDetails from "./components/PetDetails.jsx";
+//import PetGrid from "./components/PetGrid.jsx";
+//import PetDetails from "./components/PetDetails.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <Routes>
+      {/*<Routes> {/*ShovaChanged Attoja's route placed it inside app.jsx}
         <Route path="/" element={<App />} />
         <Route
           path="/dogs"
@@ -35,7 +35,8 @@ createRoot(document.getElementById("root")).render(
         />
         <Route path="/dogs/:id" element={<PetDetails />} />
         <Route path="/cats/:id" element={<PetDetails />} />
-      </Routes>
+      </Routes>*/}
+      <App />
     </BrowserRouter>
   </StrictMode>,
 );
