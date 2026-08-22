@@ -1,4 +1,4 @@
-import Navbar from "../Header-Footer/Navbar.jsx";
+import Navbar from "../Header-Footer/Navbar.jsx";//removing this one also by Shova
 import Footer from "../Header-Footer/Footer.jsx";
 import HomeImage from "../assets/backgroundPet.png";
 import DogIcon from "../assets/dogIconImg.png";
@@ -9,7 +9,7 @@ import "./HomePage.css";
 function HomePage() {
   return (
     <>
-      <Navbar></Navbar>
+      {/*<Navbar></Navbar> {/*removing this one also by Shova*/}
 
       <section
         className="hero"
@@ -37,7 +37,7 @@ function HomePage() {
         </div>
       </section>
 
-      <Footer></Footer>
+       {/*<Footer></Footer>*/ /* Shova added this one to make the footer global*/}
     </>
   );
 }
