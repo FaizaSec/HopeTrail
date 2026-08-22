@@ -35,28 +35,29 @@ function DogsAndPuppies() {
           </p>
         </div>
 
-        <div className="match-card">
+        <div className="quiz-card">
 
-          <div className="match-images">
-            <img src={DogIcon} alt="Dog" />
-            <img src={Luna} alt="Dog" />
-            <img src={Miso} alt="Dog" />
-          </div>
+          <div className="quiz-pets">
+              <img src="/quiz-pets.jpg" alt="Pets looking for a home" />
+            </div>
 
-          <div className="match-content">
+          <div className="quiz-info">
+
             <h2>Find Your Best Match</h2>
+
             <p>It only takes 60 seconds!</p>
 
             <Link to="/quiz">
               GET STARTED
             </Link>
-          </div>
 
           </div>
+
         </div>
+
       </div>
+
+    </div>
   );
 }
-
-
 export default DogsAndPuppies;

@@ -35,28 +35,28 @@ function CatsAndKittens() {
             and keeping them happy and healthy.
           </p>
         </div>
+      <div className="quiz-card">
 
-        <div className="match-card">
+          <div className="quiz-pets">
+              <img src="/quiz-pets.jpg" alt="Pets looking for a home" />
+            </div>
 
-          <div className="match-images">
-            <img src={Miso} alt="Cat" />
-            <img src={Olive} alt="Cat" />
-            <img src={Luna} alt="Cat" />
-          </div>
+          <div className="quiz-info">
 
-          <div className="match-content">
             <h2>Find Your Best Match</h2>
+
             <p>It only takes 60 seconds!</p>
 
             <Link to="/quiz">
               GET STARTED
             </Link>
+
           </div>
 
         </div>
 
       </div>
-
+    
     </div>
   );
 }
