@@ -14,7 +14,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/dogs" element={<DogGrid />} />
         <Route path="/cats" element={<CatGrid />} />
-        <Route path="/pet/:id" element={<PetDetails />} />
+        <Route path="/dogs/:id" element={<PetDetails />} />
+        <Route path="/cats/:id" element={<PetDetails />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
