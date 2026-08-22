@@ -1,5 +1,5 @@
-import Navbar from "../Header-Footer/Navbar.jsx";//removing this one also by Shova
-import Footer from "../Header-Footer/Footer.jsx";
+//import Navbar from "../Header-Footer/Navbar.jsx";//removing this one also by Shova
+//import Footer from "../Header-Footer/Footer.jsx";
 import HomeImage from "../assets/backgroundPet.png";
 import DogIcon from "../assets/dogIconImg.png";
 import CatIcon from "../assets/catIconImg.png";
