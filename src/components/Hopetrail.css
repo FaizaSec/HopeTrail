@@ -39,88 +39,6 @@
   margin: 0 auto;
   padding: 0 24px;
 }
-
-/* Navbar */
-.ht-navbar {
-  display: none !important;
-}
-.ht-navbar-inner {
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.ht-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--ht-font-display);
-  font-weight: 600;
-  font-size: 19px;
-  color: var(--ht-white);
-  text-decoration: none;
-}
-.ht-brand-mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--ht-white);
-  color: var(--ht-purple);
-  font-family: var(--ht-font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.ht-navbar-links {
-  display: flex;
-  gap: 20px;
-}
-.ht-nav-link {
-  font-family: var(--ht-font-mono);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #e4c9fa;
-  text-decoration: none;
-}
-.ht-nav-link:hover {
-  color: var(--ht-white);
-}
-
-/* Status States */
-.ht-status {
-  font-family: var(--ht-font-body);
-  font-size: 15px;
-  text-align: center;
-  padding: 60px 0;
-}
-.ht-status-loading {
-  color: var(--ht-purple);
-}
-.ht-status-loading::after {
-  content: "";
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  margin-left: 10px;
-  border: 2px solid var(--ht-purple);
-  border-top-color: transparent;
-  border-radius: 50%;
-  vertical-align: middle;
-  animation: ht-spin 0.7s linear infinite;
-}
-.ht-status-error {
-  color: var(--ht-red);
-}
-@keyframes ht-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* Hero */
 .ht-hero {
   background: var(--ht-purple);
@@ -459,12 +377,6 @@
   opacity: 0.65;
   font-size: 13px;
 }
-.ht-details-desc {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--ht-gravel);
-  margin: 0 0 6px;
-}
 .ht-adopt-btn {
   display: inline-block;
   background: var(--ht-purple);
@@ -501,15 +413,6 @@
 @media (max-width: 560px) {
   .ht-container {
     padding: 0 16px;
-  }
-  .ht-navbar-inner {
-    height: 52px;
-  }
-  .ht-navbar-links {
-    gap: 12px;
-  }
-  .ht-nav-link {
-    font-size: 11px;
   }
   .ht-hero {
     padding: 36px 0 28px;
