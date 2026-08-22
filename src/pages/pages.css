@@ -1,0 +1,613 @@
+.adopt-page {
+  padding: 0 30px 50px;
+  background: #f5f4f7;
+  min-height: 100vh;
+}
+
+.breadcrumb {
+  padding: 8px 0 45px;
+  display: flex;
+  gap: 12px;
+  font-size: 18px;
+}
+
+.breadcrumb a {
+  color: #6500a8;
+}
+
+.adopt-page h1 {
+  font-size: 58px;
+  font-weight: 400;
+  margin-bottom: 70px;
+}
+
+.adopt-content {
+  display: flex;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.intro {
+  flex: 1;
+  background: white;
+  padding: 38px;
+  border-radius: 8px;
+  font-size: 20px;
+  line-height: 1.55;
+}
+
+.quiz-card {
+  width: 390px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #6500b5;
+  color: white;
+}
+
+.quiz-pets {
+  height: 220px;
+  background: white;
+  overflow: hidden;
+}
+
+.quiz-pets img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quiz-info {
+  text-align: center;
+  padding: 35px 20px;
+}
+
+.quiz-info h2 {
+  font-size: 34px;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.quiz-info p {
+  margin-bottom: 30px;
+}
+
+.quiz-info button {
+  width: 100%;
+  padding: 16px;
+  background: #7100c7;
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
+  border-top: 1px solid #450078;
+}
+
+.about-title {
+  margin-top: 60px;
+  font-size: 40px;
+  font-weight: 400;
+}
+
+
+/* QUIZ PAGE */
+
+.quiz-page {
+  min-height: 100vh;
+  padding: 30px;
+  background: #f5f4f7;
+}
+
+.back-button {
+  color: #6500a8;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.quiz-box {
+  max-width: 1000px;
+  min-height: 400px;
+  margin: 0 auto;
+  padding: 60px;
+  border-radius: 25px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(70, 68, 62, 0.9),
+      rgba(70, 68, 62, 0.55)
+    ),
+    url("/quiz-bg.jpg") center/cover;
+  color: white;
+}
+
+.progress {
+  font-size: 17px;
+  margin-bottom: 35px;
+}
+
+.quiz-box h1 {
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 35px;
+}
+
+.quiz-box select {
+  width: 100%;
+  max-width: 600px;
+  padding: 17px;
+  border-radius: 8px;
+  border: none;
+  font-size: 17px;
+}
+
+.next-button {
+  display: block;
+  margin-top: 25px;
+  padding: 14px 35px;
+  border-radius: 25px;
+  background: white;
+  color: #6500a8;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.quiz-info a {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: #7100c7;
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
+  text-decoration: none;
+}
+
+
+/* DROPDOWN */
+
+.nav-item {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 55px;
+  left: 0;
+  width: 180px;
+  background: white;
+  box-shadow: 0 4px 15px #bbb;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown a {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.dropdown a:hover {
+  background: #f2e7f8;
+}
+
+
+/* BROWSER GETS SMALLER */
+
+@media (max-width: 1000px) {
+
+  .adopt-page {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .adopt-page h1 {
+    font-size: 48px;
+    margin-bottom: 50px;
+  }
+
+  .adopt-content {
+    gap: 20px;
+  }
+
+  .quiz-card {
+    width: 320px;
+  }
+
+  .intro {
+    padding: 30px;
+    font-size: 18px;
+  }
+
+  .quiz-box {
+    padding: 45px;
+  }
+}
+
+
+/* BROWSER GETS REALLY SMALL */
+
+@media (max-width: 750px) {
+
+  .adopt-page {
+    padding: 0 15px 40px;
+  }
+
+  .adopt-page h1 {
+    font-size: 40px;
+    margin-bottom: 35px;
+  }
+
+  .adopt-content {
+    flex-direction: column;
+  }
+
+  .intro {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .quiz-card {
+    width: 100%;
+  }
+
+  .quiz-page {
+    padding: 20px 15px;
+  }
+
+  .quiz-box {
+    padding: 35px 25px;
+    min-height: 350px;
+  }
+
+  .quiz-box h1 {
+    font-size: 32px;
+  }
+}
+
+
+/* VERY NARROW BROWSER */
+
+@media (max-width: 500px) {
+
+  .breadcrumb {
+    font-size: 15px;
+    gap: 8px;
+  }
+
+  .adopt-page h1 {
+    font-size: 32px;
+  }
+
+  .intro {
+    padding: 22px;
+    font-size: 17px;
+  }
+
+  .quiz-info h2 {
+    font-size: 28px;
+  }
+
+  .quiz-box {
+    padding: 25px 18px;
+  }
+
+  .quiz-box h1 {
+    font-size: 27px;
+  }
+}
+
+/* dogs and puppies css*/
+
+/* ================================
+   DOGS & CATS INFORMATION PAGES
+================================ */
+
+.pet-info-page {
+  background: #f5f4f7;
+  min-height: 100vh;
+  padding: 0 32px 70px;
+  color: #222;
+}
+
+.pet-breadcrumb {
+  padding: 18px 0 25px;
+  display: flex;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.pet-breadcrumb a {
+  color: #6500a8;
+  text-decoration: none;
+}
+
+.pet-info-page > h1 {
+  font-size: 56px;
+  font-weight: 400;
+  margin: 0 0 55px;
+}
+
+/* ================================
+   INTRO + QUIZ
+================================ */
+
+.pet-top-section {
+  display: grid;
+  grid-template-columns: 2.1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.pet-intro {
+  background: white;
+  padding: 35px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  font-size: 20px;
+  line-height: 1.55;
+}
+
+.pet-intro p {
+  margin: 0 0 18px;
+}
+
+.pet-intro p:last-child {
+  margin-bottom: 0;
+}
+
+/* ================================
+   MATCH CARD
+================================ */
+
+.match-card {
+  background: #6500b8;
+  color: white;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.match-images {
+  height: 155px;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+}
+
+.match-images img {
+  width: 115px;
+  height: 115px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+
+.match-content {
+  text-align: center;
+}
+
+.match-content h2 {
+  font-size: 34px;
+  font-weight: 400;
+  margin: 45px 20px 25px;
+}
+
+.match-content p {
+  font-size: 17px;
+  margin-bottom: 30px;
+}
+
+.match-content a {
+  display: block;
+  padding: 22px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-top: 1px solid #470080;
+}
+
+.match-content a:hover {
+  background: #57009c;
+}
+
+/* ================================
+   ARTICLE SECTIONS
+================================ */
+
+.article-section {
+  margin-top: 65px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 400;
+}
+
+.section-heading a {
+  color: #6500a8;
+  font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.article-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.article-card img {
+  width: 100%;
+  height: 210px;
+  display: block;
+  object-fit: cover;
+}
+
+.article-card-content {
+  padding: 20px;
+}
+
+.article-card-content p {
+  margin: 0 0 8px;
+  color: #6500a8;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.article-card-content h3 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* ================================
+   SHELTER SEARCH
+================================ */
+
+.shelter-search {
+  background: white;
+  margin-top: 70px;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12);
+}
+
+.shelter-search h2 {
+  margin: 0 0 30px;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.search-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 20px;
+  align-items: end;
+}
+
+.search-fields div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-fields label {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.search-fields input {
+  height: 48px;
+  padding: 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.search-fields button {
+  height: 48px;
+  padding: 0 30px;
+  border: none;
+  border-radius: 6px;
+  background: #6500b8;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.search-fields button:hover {
+  background: #4f008d;
+}
+
+/* ================================
+   BROWSER SHRINKING
+================================ */
+
+@media (max-width: 900px) {
+
+  .pet-info-page {
+    padding: 0 20px 50px;
+  }
+
+  .pet-info-page > h1 {
+    font-size: 44px;
+  }
+
+  .pet-top-section {
+    grid-template-columns: 1fr;
+  }
+
+  .match-card {
+    max-width: 500px;
+  }
+
+  .article-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .search-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .search-fields button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .pet-info-page > h1 {
+    font-size: 34px;
+    margin-bottom: 35px;
+  }
+
+  .pet-intro {
+    padding: 25px;
+    font-size: 17px;
+  }
+
+  .match-images img {
+    width: 85px;
+    height: 85px;
+  }
+
+  .match-content h2 {
+    font-size: 27px;
+  }
+
+  .section-heading {
+    gap: 12px;
+  }
+
+  .section-heading h2 {
+    font-size: 29px;
+  }
+
+  .article-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shelter-search {
+    padding: 25px;
+  }
+}
