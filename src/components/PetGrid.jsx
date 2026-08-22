@@ -48,7 +48,7 @@ function PetGrid({ species, heading, eyebrow, noun }) {
 
   return (
     <>
-      <Navbar />
+      {/*<Navbar />*/}
       <div className="ht-page">
         <header className="ht-hero">
           <div className="ht-container">
@@ -96,7 +96,7 @@ function PetGrid({ species, heading, eyebrow, noun }) {
           </div>
         </div>
       </div>
-      <Footer />
+      {/*<Footer />*/}
     </>
   );
 }
