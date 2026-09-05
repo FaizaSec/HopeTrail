@@ -1,60 +1,83 @@
 // ===== FROM SHOVA =====
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "./pages.css";
-
-const questions = [
-  {
-    question: "I would like to adopt",
-    options: ["Dog", "Cat", "Bird", "Others"]
-  },
-  {
-    question: "I am looking to adopt for",
-    options: ["Myself", "My family"]
-  },
-  {
-    question: "Age preference",
-    options: [
-      "A puppy",
-      "A young dog",
-      "An adult dog",
-      "A senior dog"
-    ]
-  },
-  {
-    question: "I would like to adopt a",
-    options: ["Female", "Male", "No preference"]
-  },
-  {
-    question: "A breed that I really like",
-    options: ["Golden Retriever", "Doberman"]
-  }
-];
 
 function Quiz() {
   const navigate = useNavigate();
 
   const [current, setCurrent] = useState(0);
   const [answer, setAnswer] = useState("");
+  const [answers, setAnswers] = useState([]);
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/api/quiz/questions")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch questions");
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        setQuestions(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching questions:", error);
+      });
+  }, []);
+
+  if (loading || questions.length === 0) {
+    return (
+      <div className="quiz-page loading">
+        <p>Loading questions...</p>
+      </div>
+    );
+  }
 
   const question = questions[current];
 
-  const nextQuestion = () => {
+  const nextQuestion = async () => {
     if (!answer) return;
 
+    const updatedAnswers = [...answers, answer];
+
     if (current < questions.length - 1) {
+      setAnswers(updatedAnswers);
       setCurrent(current + 1);
       setAnswer("");
     } else {
-      alert("Quiz completed!");
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/quiz/submit",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              answers: updatedAnswers,
+            }),
+          }
+        );
+
+        const data = await response.json();
+        console.log("Backend response:", data);
+
+        alert("Quiz completed!");
+      } catch (error) {
+        console.error("Error submitting quiz:", error);
+      }
     }
   };
 
   const previousQuestion = () => {
     if (current > 0) {
       setCurrent(current - 1);
-      setAnswer("");
+      setAnswer(answers[current - 1] || "");
     } else {
       navigate("/adopt");
     }
@@ -62,7 +85,6 @@ function Quiz() {
 
   return (
     <div className="quiz-page">
-
       <button
         className="back-button"
         onClick={previousQuestion}
@@ -71,7 +93,6 @@ function Quiz() {
       </button>
 
       <div className="quiz-box">
-
         <p className="progress">
           Question {current + 1} of {questions.length}
         </p>
@@ -104,9 +125,7 @@ function Quiz() {
             ? "FINISH"
             : "NEXT"}
         </button>
-
       </div>
-
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { protect } from "./middlewares/authMiddleware.js";
 import cors from "cors";
 
 import petRoutes from "./routes/PetRoutes.js";
+import quizRoutes from "./routes/quizRoutes.js";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.get("/api/profile", protect, (req, res) => {
 });
 
 app.use("/api/pets", petRoutes); //Attoja
+app.use("/api/quiz", quizRoutes);//Shova
 
 //database connection
 mongoose

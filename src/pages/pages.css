@@ -96,6 +96,16 @@
   background: #f5f4f7;
 }
 
+.quiz-page.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-page.loading p {
+  color: #6a0dad;
+}
+
 .back-button {
   color: #6500a8;
   font-size: 18px;
