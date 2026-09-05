@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const petSchema = new mongoose.Schema(
   {
-    // We keep our own short "id" (d1, c1, etc.) alongside Mongo's
+    // Keeping the short "id" (d1, c1, etc.) alongside Mongo's
     // built-in _id, so the frontend doesn't need to change at all.
     id: { type: String, required: true, unique: true },
     species: { type: String, enum: ["dog", "cat"], required: true },

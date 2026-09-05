@@ -107,7 +107,7 @@ function PetGrid({ species, heading, eyebrow, noun }) {
                 <p className="ht-empty">Loading {noun}s...</p>
               ) : filteredPets.length === 0 ? (
                 <p className="ht-empty">
-                  No {noun}s match those filters yet — try widening the trail.
+                  No {noun}s match those filters yet - try widening the trail.
                 </p>
               ) : (
                 <div className="ht-grid">

@@ -15,7 +15,7 @@ export async function getAllPets(req, res) {
   }
 }
 
-// GET /api/pets/:id  (our short id, e.g. "d1", not Mongo's _id)
+// GET /api/pets/:id  (short id, e.g. "d1", not Mongo's _id)
 export async function getPetById(req, res) {
   try {
     const pet = await Pet.findOne({ id: req.params.id });
