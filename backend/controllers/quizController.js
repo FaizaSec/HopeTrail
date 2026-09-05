@@ -1,40 +1,23 @@
-const questions = [
-  {
-    question: "I would like to adopt",
-    options: ["Dog", "Cat", "Bird", "Others"]
-  },
-  {
-    question: "I am looking to adopt for",
-    options: ["Myself", "My family"]
-  },
-  {
-    question: "Age preference",
-    options: [
-      "A puppy",
-      "A young dog",
-      "An adult dog",
-      "A senior dog"
-    ]
-  },
-  {
-    question: "I would like to adopt a",
-    options: ["Female", "Male", "No preference"]
-  },
-  {
-    question: "A breed that I really like",
-    options: ["Golden Retriever", "Doberman"]
-  }
-];
+import Question from "../models/Question.js";
 
-export const getQuestions = (req, res) => {
-  res.json(questions);
+export const getQuestions = async (req, res) => {
+  try {
+    const questions = await Question.find();
+    res.json(questions);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching questions",
+    });
+  }
 };
 
-export const submitQuiz = (req, res) => {
+export const submitQuiz = async (req, res) => {
   const answers = req.body;
 
   console.log("Quiz answers:", answers);
-   res.json({ 
+
+  res.json({
     message: "Quiz submitted successfully!",
-    answers: answers});
-}
+    answers,
+  });
+};
