@@ -8,9 +8,12 @@ function Navbar() {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
-  {
-    /*from faiza*/
-  }
+
+  // ===== AUTH USER =====
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -28,12 +31,20 @@ function Navbar() {
     setMenuOpen(false);
   }, [location.pathname]);
 
+  // ===== AUTH =====
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
   return (
     <>
       <nav className="navbar">
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </button>
+
         <div className="logo">
           <h2>HopeTrail</h2>
         </div>
@@ -67,7 +78,6 @@ function Navbar() {
 
           {/*All about pet by shova*/}
           {/* ===== FROM SHOVA ===== */}
-          {/* ===== FROM SHOVA ===== */}
           <div className="about-section">
             <button
               className="about"
@@ -78,6 +88,7 @@ function Navbar() {
             >
               ALL ABOUT PETS {aboutOpen ? "⌃" : "⌄"}
             </button>
+
             {aboutOpen && (
               <div className="mobile-ribbon">
                 <Link to="/adopt">ADOPT OR GET INVOLVED</Link>
@@ -91,11 +102,22 @@ function Navbar() {
             )}
           </div>
         </div>
+
         {/*from faiza*/}
         <div className="nav-actions">
-          <button className="sign-in" onClick={() => setShowSignIn(true)}>
-            SIGN IN
-          </button>
+          {user ? (
+            <>
+              <span>{user.name}</span>
+
+              <button className="sign-in" onClick={handleLogout}>
+                LOGOUT
+              </button>
+            </>
+          ) : (
+            <button className="sign-in" onClick={() => setShowSignIn(true)}>
+              SIGN IN
+            </button>
+          )}
         </div>
       </nav>
 
@@ -111,6 +133,7 @@ function Navbar() {
           <Link to="/other-pets">OTHER TYPES OF PETS</Link>
         </div>
       )}
+
       {/*from faiza*/}
       {showSignIn && (
         <>
@@ -158,7 +181,21 @@ function Navbar() {
           </div>
         </>
       )}
-      {showLogin && <Login onClose={() => setShowLogin(false)} />}
+
+      {showLogin && (
+        <Login
+          onClose={() => {
+            setShowLogin(false);
+
+            const savedUser = localStorage.getItem("user");
+
+            if (savedUser) {
+              setUser(JSON.parse(savedUser));
+            }
+          }}
+        />
+      )}
+
       {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
     </>
   );
