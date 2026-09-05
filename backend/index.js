@@ -5,6 +5,8 @@ import authRoutes from "./routes/authRoutes.js";
 import { protect } from "./middlewares/authMiddleware.js";
 import cors from "cors";
 
+import petRoutes from "./routes/PetRoutes.js";
+
 const app = express();
 
 //cors
@@ -21,6 +23,8 @@ app.get("/api/profile", protect, (req, res) => {
     user: req.user,
   });
 });
+
+app.use("/api/pets", petRoutes); //Attoja
 
 //database connection
 mongoose

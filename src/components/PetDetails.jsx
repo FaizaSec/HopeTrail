@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { fetchPetById } from "../data/petsData";
 import Navbar from "../Header-Footer/Navbar";
@@ -22,8 +22,39 @@ const Check = ({ label, value }) => (
 
 function PetDetails() {
   const { id } = useParams();
+  const [pet, setPet] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const pet = fetchPetById(id);
+  useEffect(() => {
+    let ignore = false;
+
+    setLoading(true);
+    fetchPetById(id)
+      .then((data) => {
+        if (!ignore) setPet(data);
+      })
+      .catch((err) => {
+        console.error(err);
+        if (!ignore) setPet(null);
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false);
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="ht-page">
+        <div className="ht-container">
+          <p className="ht-empty">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!pet) {
     return (

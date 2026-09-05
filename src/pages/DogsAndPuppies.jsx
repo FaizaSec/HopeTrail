@@ -2,13 +2,10 @@ import { Link } from "react-router";
 import "./pages.css";
 
 import DogIcon from "../assets/dogIconImg.png";
-import Luna from "../assets/luna.png";
-import Miso from "../assets/miso.png";
 
 function DogsAndPuppies() {
   return (
     <div className="pet-info-page">
-
       {/* ===== PAGE HEADER ===== */}
       <div className="pet-breadcrumb">
         <Link to="/">Home</Link>
@@ -20,43 +17,34 @@ function DogsAndPuppies() {
 
       {/* ===== INTRO + QUIZ ===== */}
       <div className="pet-top-section">
-
         <div className="pet-intro">
           <p>
-            Welcome to our Dogs & Puppies articles, your one-stop resource
-            for all things canine! Whether you need training tips, advice
-            on keeping your dog healthy and happy, or information on finding
-            a dog for adoption, we've got you covered.
+            Welcome to our Dogs & Puppies articles, your one-stop resource for
+            all things canine! Whether you need training tips, advice on keeping
+            your dog healthy and happy, or information on finding a dog for
+            adoption, we've got you covered.
           </p>
 
           <p>
-            Explore helpful information about dogs and puppies, from
-            adoption and training to health, behavior and everyday care.
+            Explore helpful information about dogs and puppies, from adoption
+            and training to health, behavior and everyday care.
           </p>
         </div>
 
         <div className="quiz-card">
-
           <div className="quiz-pets">
-              <img src="/quiz-pets.jpg" alt="Pets looking for a home" />
-            </div>
+            <img src="/quiz-pets.jpg" alt="Pets looking for a home" />
+          </div>
 
           <div className="quiz-info">
-
             <h2>Find Your Best Match</h2>
 
             <p>It only takes 60 seconds!</p>
 
-            <Link to="/quiz">
-              GET STARTED
-            </Link>
-
+            <Link to="/quiz">GET STARTED</Link>
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }

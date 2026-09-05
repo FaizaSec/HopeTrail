@@ -11,12 +11,34 @@ const INITIAL_FILTERS = { breed: "All", age: [], size: [], gender: [] };
 
 function PetGrid({ species, heading, eyebrow, noun }) {
   const [filters, setFilters] = useState(INITIAL_FILTERS);
+  const [pets, setPets] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setFilters(INITIAL_FILTERS);
   }, [species]);
 
-  const pets = useMemo(() => fetchAllPets(species) || [], [species]);
+  // Fetch pets from the backend whenever the species changes.
+  useEffect(() => {
+    let ignore = false;
+
+    setLoading(true);
+    fetchAllPets(species)
+      .then((data) => {
+        if (!ignore) setPets(data);
+      })
+      .catch((err) => {
+        console.error(err);
+        if (!ignore) setPets([]);
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false);
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [species]);
 
   const breeds = useMemo(
     () => [...new Set(pets.map((pet) => pet.breed).filter(Boolean))].sort(),
@@ -81,7 +103,9 @@ function PetGrid({ species, heading, eyebrow, noun }) {
             />
 
             <section>
-              {filteredPets.length === 0 ? (
+              {loading ? (
+                <p className="ht-empty">Loading {noun}s...</p>
+              ) : filteredPets.length === 0 ? (
                 <p className="ht-empty">
                   No {noun}s match those filters yet — try widening the trail.
                 </p>
