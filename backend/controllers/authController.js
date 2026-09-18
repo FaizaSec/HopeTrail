@@ -6,6 +6,13 @@ export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    // Check if required fields are missing
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        message: "Name, email and password are required",
+      });
+    }
+
     // Check if user already exists
     const existingUser = await User.findOne({ email });
 
@@ -37,6 +44,7 @@ export const registerUser = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
     });
   } catch (error) {
@@ -50,6 +58,13 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    // Check if required fields are missing
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Email and password are required",
+      });
+    }
 
     const user = await User.findOne({ email });
 
@@ -78,6 +93,7 @@ export const loginUser = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
     });
   } catch (error) {

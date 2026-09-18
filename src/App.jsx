@@ -14,6 +14,11 @@ import Adopt from "./pages/Adopt.jsx";
 import Quiz from "./pages/Quiz.jsx";
 import Footer from "./Header-Footer/Footer.jsx";
 
+//faiza admin
+import AdminDashboard from "./pages/AdminDashboard.jsx";
+//faiza user profile
+import UserProfile from "./pages/UserProfile.jsx";
+
 function App() {
   return (
     <>
@@ -24,7 +29,6 @@ function App() {
       <Navbar />
 
       <Routes>
-
         {/* ===== FROM TEAMMATE ===== */}
         <Route path="/" element={<HomePage />} />
 
@@ -56,39 +60,27 @@ function App() {
         <Route path="/dogs/:id" element={<PetDetails />} />
         <Route path="/cats/:id" element={<PetDetails />} />
 
-
         {/* ===== FROM SHOVA ===== */}
 
         {/* Your Dogs page */}
-        <Route
-          path="/dogs-and-puppies"
-          element={<DogsAndPuppies />}
-        />
+        <Route path="/dogs-and-puppies" element={<DogsAndPuppies />} />
 
         {/* Your Cats page */}
-        <Route
-          path="/cats-and-kittens"
-          element={<CatsAndKittens />}
-        />
+        <Route path="/cats-and-kittens" element={<CatsAndKittens />} />
 
         {/* Your Other Pets page */}
-        <Route
-          path="/other-pets"
-          element={<OtherPets />}
-        />
+        <Route path="/other-pets" element={<OtherPets />} />
 
         {/* Your Adopt page */}
-        <Route
-          path="/adopt"
-          element={<Adopt />}
-        />
+        <Route path="/adopt" element={<Adopt />} />
 
         {/* Your Quiz page */}
-        <Route
-          path="/quiz"
-          element={<Quiz />}
-        />
+        <Route path="/quiz" element={<Quiz />} />
 
+        {/* Faiza Admin Dashboard */}
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        {/* Faiza User Profile */}
+        <Route path="/user-profile" element={<UserProfile />} />
       </Routes>
       {/*Shova Changed the global footer */}
       <Footer />

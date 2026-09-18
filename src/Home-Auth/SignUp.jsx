@@ -8,6 +8,12 @@ function SignUp({ onClose }) {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignup = async () => {
+    // Check if any field is empty
+    if (!name || !email || !password || !confirmPassword) {
+      alert("Please fill in all fields");
+      return;
+    }
+
     // Confirm password check
     if (password !== confirmPassword) {
       alert("Passwords do not match");

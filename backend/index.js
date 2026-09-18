@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import "dotenv/config";
 import authRoutes from "./routes/authRoutes.js";
-import { protect } from "./middlewares/authMiddleware.js";
+import userRoutes from "./routes/userRoutes.js";
 import cors from "cors";
 
 import petRoutes from "./routes/PetRoutes.js";
@@ -18,15 +18,10 @@ app.use(express.json());
 //authentication
 app.use("/api/auth", authRoutes);
 
-app.get("/api/profile", protect, (req, res) => {
-  res.status(200).json({
-    message: "Protected route accessed",
-    user: req.user,
-  });
-});
+app.use("/api/users", userRoutes); //new for profile
 
 app.use("/api/pets", petRoutes); //Attoja
-app.use("/api/quiz", quizRoutes);//Shova
+app.use("/api/quiz", quizRoutes); //Shova
 
 //database connection
 mongoose

@@ -109,9 +109,15 @@ function Navbar() {
             <>
               <span>{user.name}</span>
 
-              <button className="sign-in" onClick={handleLogout}>
-                LOGOUT
-              </button>
+              {user.role === "admin" ? (
+                <Link to="/admin-dashboard" className="sign-in">
+                  ADMIN DASHBOARD
+                </Link>
+              ) : (
+                <Link to="/user-profile" className="sign-in">
+                  USER PROFILE
+                </Link>
+              )}
             </>
           ) : (
             <button className="sign-in" onClick={() => setShowSignIn(true)}>
