@@ -26,12 +26,17 @@ const AdoptionForm = () => {
   // 1. Auth check, Admin check & missing petId check
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user") || "{}"); // ইউজার অবজেক্ট থেকে রোল চেক
+
+    let user = {};
+    try {
+      user = JSON.parse(localStorage.getItem("user") || "{}");
+    } catch (e) {
+      user = {};
+    }
 
     // if the token is not there
     if (!token) {
       alert("Please log in to apply for adoption.");
-      navigate("/");
       return;
     }
 
