@@ -58,3 +58,77 @@ export const createAdoptionApplication = async (req, res) => {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
+
+//--------------FAIZA  work---------
+export const getAllAdoptionApplications = async (req, res) => {
+  try {
+    const applications = await Adoption.find();
+
+    res.status(200).json({
+      applications,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+};
+
+// Admin - Approve or Reject adoption application
+export const updateAdoptionStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    // Only Approved or Rejected status is allowed
+    if (!["Approved", "Rejected"].includes(status)) {
+      return res.status(400).json({
+        message: "Status must be Approved or Rejected",
+      });
+    }
+
+    // Find the specific application by application ID
+    const application = await Adoption.findById(req.params.id);
+
+    if (!application) {
+      return res.status(404).json({
+        message: "Adoption application not found",
+      });
+    }
+
+    // Change the application status
+    application.status = status;
+
+    await application.save();
+
+    res.status(200).json({
+      message: `Application ${status} successfully`,
+      application,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+};
+
+// User - Get own adoption applications
+export const getMyAdoptionApplications = async (req, res) => {
+  try {
+    const userId = req.user._id || req.user.id;
+
+    const applications = await Adoption.find({
+      user: userId,
+    });
+
+    res.status(200).json({
+      applications,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+};

@@ -1,0 +1,253 @@
+.admin-dashboard {
+  min-height: 100vh;
+  background: #f6f7f4;
+  padding: 50px 7%;
+  font-family: Arial, sans-serif;
+  color: #202820;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 35px;
+}
+
+.admin-label {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #687368;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 36px;
+  color: #26382d;
+}
+
+.admin-subtitle {
+  margin-top: 10px;
+  color: #707970;
+  font-size: 15px;
+}
+
+.admin-logout {
+  border: 1px solid #26382d;
+  background: transparent;
+  color: #26382d;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-logout:hover {
+  background: #26382d;
+  color: white;
+}
+
+.application-summary {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.application-summary div {
+  background: white;
+  border: 1px solid #e1e5df;
+  border-radius: 10px;
+  padding: 18px 25px;
+  min-width: 170px;
+}
+
+.application-summary span {
+  display: block;
+  color: #788078;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+.application-summary strong {
+  font-size: 27px;
+  color: #26382d;
+}
+
+.applications-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.application-card {
+  background: white;
+  border: 1px solid #e1e5df;
+  border-radius: 12px;
+  padding: 25px;
+}
+
+.application-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #ecefeb;
+}
+
+.application-id {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: #929992;
+}
+
+.application-card-header h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #25372c;
+}
+
+.status-badge {
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-badge.pending {
+  background: #fff4d6;
+  color: #8a6500;
+}
+
+.status-badge.approved {
+  background: #e1f3e6;
+  color: #28733b;
+}
+
+.status-badge.rejected {
+  background: #fde5e5;
+  color: #a13232;
+}
+
+.pet-section {
+  padding: 18px 0;
+}
+
+.pet-section span {
+  font-size: 12px;
+  color: #8a918a;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.pet-section h3 {
+  margin: 5px 0 0;
+  font-size: 20px;
+  color: #405c48;
+}
+
+.application-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.detail-item {
+  background: #f8f9f7;
+  padding: 12px 14px;
+  border-radius: 7px;
+}
+
+.detail-item span {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #8b938b;
+  margin-bottom: 5px;
+}
+
+.detail-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #333b35;
+  word-break: break-word;
+}
+
+.application-reason {
+  margin-top: 18px;
+  padding-top: 17px;
+  border-top: 1px solid #ecefeb;
+}
+
+.application-reason span {
+  font-size: 12px;
+  font-weight: 700;
+  color: #777f78;
+  text-transform: uppercase;
+}
+
+.application-reason p {
+  margin: 8px 0 0;
+  line-height: 1.6;
+  font-size: 14px;
+  color: #4c554e;
+}
+
+.application-message {
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  color: #737b74;
+}
+
+@media (max-width: 900px) {
+  .applications-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-dashboard {
+    padding: 30px 20px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+  }
+
+  .admin-header h1 {
+    font-size: 28px;
+  }
+
+  .application-summary {
+    flex-direction: column;
+  }
+
+  .application-summary div {
+    width: 100%;
+  }
+
+  .application-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+.status-select {
+  border: none;
+  outline: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.status-select.pending {
+  background: #fff1cc;
+  color: #9a6800;
+}
