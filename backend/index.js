@@ -7,6 +7,7 @@ import cors from "cors";
 
 import petRoutes from "./routes/PetRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
+import adoptionRoutes from "./routes/adoptionRoutes.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes); //new for profile
 
 app.use("/api/pets", petRoutes); //Attoja
+app.use("/api/adoptions", adoptionRoutes); //Attoja
 app.use("/api/quiz", quizRoutes); //Shova
 
 //database connection

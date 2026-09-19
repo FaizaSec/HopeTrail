@@ -4,7 +4,8 @@ import { Routes, Route } from "react-router";
 import Navbar from "./Header-Footer/Navbar.jsx";
 import HomePage from "./Home-Auth/HomePage.jsx";
 import PetGrid from "./components/PetGrid.jsx";
-import PetDetails from "./Components/PetDetails.jsx";
+import PetDetails from "./components/PetDetails.jsx";
+import AdoptionForm from "./components/AdoptionForm";
 
 // ===== FROM SHOVA =====
 import DogsAndPuppies from "./pages/DogsAndPuppies.jsx";
@@ -31,7 +32,6 @@ function App() {
       <Routes>
         {/* ===== FROM TEAMMATE ===== */}
         <Route path="/" element={<HomePage />} />
-
         {/* Teammate's existing pet system */}
         <Route
           path="/dogs"
@@ -44,7 +44,6 @@ function App() {
             />
           }
         />
-
         <Route
           path="/cats"
           element={
@@ -56,27 +55,21 @@ function App() {
             />
           }
         />
-
+        <Route path="/adopt-form" element={<AdoptionForm />} /> //attoja
+        adoption form
         <Route path="/dogs/:id" element={<PetDetails />} />
         <Route path="/cats/:id" element={<PetDetails />} />
-
         {/* ===== FROM SHOVA ===== */}
-
         {/* Your Dogs page */}
         <Route path="/dogs-and-puppies" element={<DogsAndPuppies />} />
-
         {/* Your Cats page */}
         <Route path="/cats-and-kittens" element={<CatsAndKittens />} />
-
         {/* Your Other Pets page */}
         <Route path="/other-pets" element={<OtherPets />} />
-
         {/* Your Adopt page */}
         <Route path="/adopt" element={<Adopt />} />
-
         {/* Your Quiz page */}
         <Route path="/quiz" element={<Quiz />} />
-
         {/* Faiza Admin Dashboard */}
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* Faiza User Profile */}

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import { fetchPetById } from "../data/petsData";
-import Navbar from "../Header-Footer/Navbar";
-//import Footer from "../Header-Footer/Footer";
 import "./Hopetrail.css";
 
 const Row = ({ icon, children, wide }) => (
@@ -22,6 +20,7 @@ const Check = ({ label, value }) => (
 
 function PetDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -45,6 +44,26 @@ function PetDetails() {
       ignore = true;
     };
   }, [id]);
+
+  const handleStartAdoption = () => {
+    if (!pet) return;
+
+    const token = localStorage.getItem("token");
+
+    // if not login then the msg appears
+    if (!token) {
+      alert(`Please log in first to adopt ${pet.name}!`);
+      return;
+    }
+
+    // if login then take to form page
+    navigate("/adopt-form", {
+      state: {
+        petId: pet._id || id,
+        petName: pet.name,
+      },
+    });
+  };
 
   if (loading) {
     return (
@@ -124,7 +143,7 @@ function PetDetails() {
               <Row>
                 <strong>Personality</strong>
                 <br />
-                {pet.personality.join(", ")}
+                {pet.personality ? pet.personality.join(", ") : ""}
               </Row>
 
               <Check label="House-trained" value={pet.houseTrained} />
@@ -133,7 +152,12 @@ function PetDetails() {
 
               <Check label="Spayed/Neutered" value={pet.spayedNeutered} />
               <Check label="Vaccinated" value={pet.vaccinated} />
-              <button type="button" className="ht-adopt-btn ht-section-spaced">
+
+              <button
+                type="button"
+                onClick={handleStartAdoption}
+                className="ht-adopt-btn ht-section-spaced"
+              >
                 Start {pet.name}'s adoption
               </button>
             </div>
