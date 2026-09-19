@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+
 import "./pages.css";
 
 function Adopt() {
@@ -28,8 +29,11 @@ function Adopt() {
         <div className="quiz-card">
 
           <div className="quiz-pets">
-              <img src="/quiz-pets.jpg" alt="Pets looking for a home" />
-            </div>
+            <img
+              src="/quiz-pets.jpg"
+              alt="Pets looking for a home"
+            />
+          </div>
 
           <div className="quiz-info">
 
@@ -37,12 +41,21 @@ function Adopt() {
 
             <p>It only takes 60 seconds!</p>
 
-            <Link to="/quiz">
+            <Link
+              to="/quiz"
+              onClick={(e) => {
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                  e.preventDefault();
+                  alert("Please log in first to take the quiz!");
+                }
+              }}
+            >
               GET STARTED
             </Link>
 
           </div>
-
         </div>
 
       </div>
