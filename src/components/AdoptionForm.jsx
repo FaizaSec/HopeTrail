@@ -34,12 +34,6 @@ const AdoptionForm = () => {
       user = {};
     }
 
-    // if the token is not there
-    if (!token) {
-      alert("Please log in to apply for adoption.");
-      return;
-    }
-
     // if admin then can't apply for adoption
     if (user.role === "admin") {
       alert(
