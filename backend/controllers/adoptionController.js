@@ -2,6 +2,13 @@ import Adoption from "../models/Adoption.js";
 
 export const createAdoptionApplication = async (req, res) => {
   try {
+    //  Admin can't submit the form (ATTOJA)
+    if (req.user.role === "admin") {
+      return res.status(403).json({
+        message: "Admins are not allowed to submit adoption applications!",
+      });
+    }
+
     const {
       petId,
       petName,

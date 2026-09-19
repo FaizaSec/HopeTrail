@@ -23,17 +23,30 @@ const AdoptionForm = () => {
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState("");
 
-  // 1. Auth check & missing petId check
+  // 1. Auth check, Admin check & missing petId check
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || "{}"); // ইউজার অবজেক্ট থেকে রোল চেক
+
+    // if the token is not there
     if (!token) {
       alert("Please log in to apply for adoption.");
       navigate("/");
       return;
     }
 
+    // if admin then can't apply for adoption
+    if (user.role === "admin") {
+      alert(
+        "Admins are not allowed to submit adoption applications! You must be a general user.",
+      );
+      navigate("/");
+      return;
+    }
+
+    // if there is no petID
     if (!petId) {
-      alert("No pet selected. Redirecting to pets page.");
+      alert("No pet selected. Redirecting to home page.");
       navigate("/");
     }
   }, [navigate, petId]);
