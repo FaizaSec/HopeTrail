@@ -2,7 +2,7 @@ import "./Navbar.css";
 import Login from "../Home-Auth/Login.jsx";
 import SignUp from "../Home-Auth/SignUp.jsx";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router"; //changed dom by shova
+import { Link, useLocation } from "react-router";
 
 function Navbar() {
   const [showSignIn, setShowSignIn] = useState(false);
@@ -10,10 +10,9 @@ function Navbar() {
   const [showSignUp, setShowSignUp] = useState(false);
 
   // ===== AUTH USER =====
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("user");
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  // LocalStorage theke user niye authentication korbo na.
+  // Backend theke actual user information anbo.
+  const [user, setUser] = useState(null);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -23,19 +22,72 @@ function Navbar() {
 
   const location = useLocation();
 
-  // ===== FROM SHOVA =====
-  // Close dropdowns when changing page
+  // ===== GET ACTUAL USER FROM BACKEND =====
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/users/profile",
+          {
+            credentials: "include",
+          },
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          // Token invalid / expired hole localStorage clear
+          await fetch("http://localhost:4000/api/auth/logout", {
+            method: "POST",
+            credentials: "include",
+          });
+
+          localStorage.removeItem("user");
+          setUser(null);
+          return;
+        }
+
+        // Backend/database theke actual user set hobe
+        setUser(data.user);
+
+        // Optional:
+        // LocalStorage-eo actual user information update kore rakha
+        localStorage.setItem("user", JSON.stringify(data.user));
+      } catch (error) {
+        console.error("Navbar authentication error:", error);
+
+        localStorage.removeItem("user");
+        setUser(null);
+      }
+    };
+
+    getCurrentUser();
+  }, []);
+
+  // ===== CLOSE DROPDOWNS WHEN PAGE CHANGES =====
   useEffect(() => {
     setAboutOpen(false);
     setFindOpen(false);
     setMenuOpen(false);
   }, [location.pathname]);
 
-  // ===== AUTH =====
-  const handleLogout = () => {
+  // ===== AUTH LOGOUT =====
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:4000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
     setUser(null);
+
+    window.location.href = "/";
   };
 
   return (
@@ -49,9 +101,8 @@ function Navbar() {
           <h2>HopeTrail</h2>
         </div>
 
-        {/*Shovar menu*/}
+        {/* ===== FIND A PET ===== */}
         <div className={`links ${menuOpen ? "menu-open" : ""}`}>
-          {/* ===== FROM SHOVA ===== */}
           <div className="nav-item">
             <button
               onClick={() => {
@@ -64,20 +115,16 @@ function Navbar() {
 
             {findOpen && (
               <div className="dropdown">
-                {/* ===== FROM SHOVA ===== */}
                 <Link to="/dogs-and-puppies">Dogs</Link>
 
-                {/* ===== FROM SHOVA ===== */}
                 <Link to="/cats-and-kittens">Cats</Link>
 
-                {/* ===== FROM SHOVA ===== */}
                 <Link to="/other-pets">Other Pets</Link>
               </div>
             )}
           </div>
 
-          {/*All about pet by shova*/}
-          {/* ===== FROM SHOVA ===== */}
+          {/* ===== ALL ABOUT PETS ===== */}
           <div className="about-section">
             <button
               className="about"
@@ -103,7 +150,7 @@ function Navbar() {
           </div>
         </div>
 
-        {/*from faiza*/}
+        {/* ===== AUTH USER ===== */}
         <div className="nav-actions">
           {user ? (
             <>
@@ -127,7 +174,7 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* ===== FROM SHOVA ===== */}
+      {/* ===== ABOUT RIBBON ===== */}
       {aboutOpen && (
         <div className="ribbon">
           <Link to="/adopt">ADOPT OR GET INVOLVED</Link>
@@ -140,7 +187,7 @@ function Navbar() {
         </div>
       )}
 
-      {/*from faiza*/}
+      {/* ===== SIGN IN PANEL ===== */}
       {showSignIn && (
         <>
           <div
@@ -188,20 +235,50 @@ function Navbar() {
         </>
       )}
 
+      {/* ===== LOGIN ===== */}
       {showLogin && (
         <Login
           onClose={() => {
             setShowLogin(false);
 
-            const savedUser = localStorage.getItem("user");
+            // Login successful hole Login.jsx localStorage-e user save korbe.
+            // Tarpor backend theke fresh/actual user niye asbo.
+            const getLoggedInUser = async () => {
+              try {
+                const response = await fetch(
+                  "http://localhost:4000/api/users/profile",
+                  {
+                    credentials: "include",
+                  },
+                );
 
-            if (savedUser) {
-              setUser(JSON.parse(savedUser));
-            }
+                const data = await response.json();
+
+                if (!response.ok) {
+                  localStorage.removeItem("user");
+                  localStorage.removeItem("token");
+                  setUser(null);
+                  return;
+                }
+
+                setUser(data.user);
+
+                localStorage.setItem("user", JSON.stringify(data.user));
+              } catch (error) {
+                console.error("Login user fetch error:", error);
+
+                localStorage.removeItem("user");
+                localStorage.removeItem("token");
+                setUser(null);
+              }
+            };
+
+            getLoggedInUser();
           }}
         />
       )}
 
+      {/* ===== SIGN UP ===== */}
       {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
     </>
   );

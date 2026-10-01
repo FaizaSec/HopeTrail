@@ -5,25 +5,66 @@ import "./AdminDashboard.css";
 function AdminDashboard() {
   const navigate = useNavigate();
 
-  // Adoption applications rakhar jonno
+  // Adoption applications
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Login kora user er information
-  const savedUser = localStorage.getItem("user");
-  const user = savedUser ? JSON.parse(savedUser) : null;
+  // Logged in admin user
+  const [user, setUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
-  // Backend theke sob adoption application ana
+  // -----------------------------------------
+  // VERIFY USER FROM BACKEND
+  // -----------------------------------------
+  useEffect(() => {
+    const verifyUser = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/users/profile",
+          {
+            credentials: "include",
+          },
+        );
+
+        const data = await response.json();
+
+        // Token invalid / expired / no login
+        if (!response.ok) {
+          await fetch("http://localhost:4000/api/auth/logout", {
+            method: "POST",
+            credentials: "include",
+          });
+
+          localStorage.removeItem("user");
+
+          window.location.href = "/";
+          return;
+        }
+
+        // Backend theke actual user
+        setUser(data.user);
+        setAuthLoading(false);
+      } catch (error) {
+        console.error("Authentication error:", error);
+
+        localStorage.removeItem("user");
+
+        window.location.href = "/";
+      }
+    };
+
+    verifyUser();
+  }, []);
+
+  // -----------------------------------------
+  // GET ALL ADOPTION APPLICATIONS
+  // -----------------------------------------
   useEffect(() => {
     const getApplications = async () => {
-      const token = localStorage.getItem("token");
-
       try {
         const response = await fetch("http://localhost:4000/api/adoptions", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         });
 
         const data = await response.json();
@@ -42,33 +83,45 @@ function AdminDashboard() {
       }
     };
 
+    // Only admin can get applications
     if (user && user.role === "admin") {
       getApplications();
     }
-  }, []);
+  }, [user]);
 
-  // Login kora na thakle Home page
+  // -----------------------------------------
+  // AUTH LOADING
+  // -----------------------------------------
+  if (authLoading) {
+    return <p>Loading...</p>;
+  }
+
+  // -----------------------------------------
+  // NOT LOGGED IN
+  // -----------------------------------------
   if (!user) {
     return <Navigate to="/" replace />;
   }
 
-  // Login kora ace kintu Admin na
+  // -----------------------------------------
+  // LOGGED IN BUT NOT ADMIN
+  // -----------------------------------------
   if (user.role !== "admin") {
     return <Navigate to="/" replace />;
   }
 
-  // Application status Approved / Rejected kora
+  // -----------------------------------------
+  // APPLICATION STATUS CHANGE
+  // -----------------------------------------
   const handleStatusChange = async (applicationId, newStatus) => {
-    const token = localStorage.getItem("token");
-
     try {
       const response = await fetch(
         `http://localhost:4000/api/adoptions/${applicationId}/status`,
         {
           method: "PATCH",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             status: newStatus,
@@ -83,7 +136,6 @@ function AdminDashboard() {
         return;
       }
 
-      // Status update howar por dashboard eo sathe sathe update
       setApplications((previousApplications) =>
         previousApplications.map((application) =>
           application._id === applicationId
@@ -97,13 +149,22 @@ function AdminDashboard() {
     }
   };
 
-  // Logout
-  const handleLogout = () => {
-    localStorage.removeItem("token");
+  // -----------------------------------------
+  // LOGOUT
+  // -----------------------------------------
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:4000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+
     localStorage.removeItem("user");
 
-    navigate("/");
-    window.location.reload();
+    window.location.href = "/";
   };
 
   return (
@@ -184,7 +245,6 @@ function AdminDashboard() {
                     <option value="Rejected">Reject</option>
                   </select>
                 ) : (
-                  // Approved / Rejected hole sudhu status dekhabe
                   <span
                     className={`status-badge ${application.status.toLowerCase()}`}
                   >

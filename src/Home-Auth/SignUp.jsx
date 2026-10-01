@@ -23,6 +23,7 @@ function SignUp({ onClose }) {
     try {
       const response = await fetch("http://localhost:4000/api/auth/register", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -40,8 +41,7 @@ function SignUp({ onClose }) {
         return;
       }
 
-      // Save token and newly created user
-      localStorage.setItem("token", data.token);
+      // Save newly created user
       localStorage.setItem("user", JSON.stringify(data.user));
 
       alert("Account created successfully");

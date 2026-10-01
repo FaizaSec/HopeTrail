@@ -16,22 +16,24 @@ function UserProfile() {
   // -----------------------------------------
   useEffect(() => {
     const getProfile = async () => {
-      const token = localStorage.getItem("token");
-
       try {
         const response = await fetch(
           "http://localhost:4000/api/users/profile",
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            credentials: "include",
           },
         );
 
         const data = await response.json();
 
         if (!response.ok) {
-          alert(data.message);
+          await fetch("http://localhost:4000/api/auth/logout", {
+            method: "POST",
+            credentials: "include",
+          });
+
+          localStorage.removeItem("user"); //eta delete korte hobe
+          window.location.href = "/";
           return;
         }
 
@@ -42,23 +44,19 @@ function UserProfile() {
     };
 
     getProfile();
-  }, []);
+  }, []); //ekhane change korsi
 
   // -----------------------------------------
   // NEW LOGIC - User er nijer applications ana
   // -----------------------------------------
   useEffect(() => {
     const getMyApplications = async () => {
-      const token = localStorage.getItem("token");
-
       try {
         const response = await fetch(
           "http://localhost:4000/api/adoptions/my-applications",
           {
             method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            credentials: "include",
           },
         );
 
@@ -84,9 +82,17 @@ function UserProfile() {
   // -----------------------------------------
   // EXISTING LOGIC - Logout
   // -----------------------------------------
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:4000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+
+    localStorage.removeItem("user"); //etao delete korte hobe
 
     navigate("/");
     window.location.reload();

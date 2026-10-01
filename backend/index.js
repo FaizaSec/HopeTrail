@@ -4,6 +4,7 @@ import "dotenv/config";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import petRoutes from "./routes/PetRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
@@ -11,21 +12,29 @@ import adoptionRoutes from "./routes/adoptionRoutes.js";
 
 const app = express();
 
-//cors
-app.use(cors());
+// cors
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 
-//authentication
+// cookie parser
+app.use(cookieParser());
+
+// authentication
 app.use("/api/auth", authRoutes);
 
-app.use("/api/users", userRoutes); //new for profile
+app.use("/api/users", userRoutes); // new for profile
 
-app.use("/api/pets", petRoutes); //Attoja
-app.use("/api/adoptions", adoptionRoutes); //Attoja
-app.use("/api/quiz", quizRoutes); //Shova
+app.use("/api/pets", petRoutes); // Attoja
+app.use("/api/adoptions", adoptionRoutes); // Attoja
+app.use("/api/quiz", quizRoutes); // Shova
 
-//database connection
+// database connection
 mongoose
   .connect(process.env.DB_URL)
   .then(() => console.log("Database Connected"))
