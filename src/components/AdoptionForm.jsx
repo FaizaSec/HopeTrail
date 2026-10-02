@@ -23,63 +23,73 @@ const AdoptionForm = () => {
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState("");
 
-  // 1. Auth check, Admin check & missing petId check
+  const API_BASE_URL = import.meta.env?.VITE_API_URL || "http://localhost:4000";
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    let user = {};
-    try {
-      user = JSON.parse(localStorage.getItem("user") || "{}");
-    } catch (e) {
-      user = {};
-    }
-
-    // if admin then can't apply for adoption
-    if (user.role === "admin") {
-      alert(
-        "Admins are not allowed to submit adoption applications! You must be a general user.",
-      );
+    if (!petId) {
+      alert("No pet selected. Redirecting to home page.");
       navigate("/");
       return;
     }
 
-    // if there is no petID
-    if (!petId) {
-      alert("No pet selected. Redirecting to home page.");
-      navigate("/");
-    }
-  }, [navigate, petId]);
+    // backend chech if the user logged in or not
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
+          method: "GET",
+          credentials: "include",
+        });
 
-  // 2. Client-side Form Validation Rules
+        if (!response.ok) {
+          alert("Please sign in first to adopt a pet!");
+          navigate("/");
+        }
+      } catch (err) {
+        console.error("Auth check failed:", err);
+        navigate("/login");
+      }
+    };
+
+    checkAuth();
+  }, [navigate, petId, API_BASE_URL]);
+
+  // Form validation
   const validateForm = () => {
     let newErrors = {};
 
-    // Full Name: Only letters, spaces, and dots allowed
+    // Full Name
     const nameRegex = /^[a-zA-Z\s.]+$/;
+
     if (!formData.fullName.trim()) {
       newErrors.fullName = "Full name is required";
     } else if (!nameRegex.test(formData.fullName)) {
       newErrors.fullName = "Name can only contain alphabets and spaces";
     }
 
-    // Email Validation
+    // Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = "Please enter a valid email address";
     }
 
-    // Phone Validation (BD Standard Example: +88017... or 017...)
+    // BD Phone
     const phoneRegex = /^(?:\+88|88)?(01[3-9]\d{8})$/;
+
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
     } else if (!phoneRegex.test(formData.phone)) {
       newErrors.phone = "Enter a valid BD phone number (e.g., 01712345678)";
     }
 
-    // Address & Reason
-    if (!formData.address.trim()) newErrors.address = "Address is required";
+    // Address
+    if (!formData.address.trim()) {
+      newErrors.address = "Address is required";
+    }
+
+    // Reason
     if (!formData.reason.trim()) {
       newErrors.reason = "Please state your reason for adoption";
     } else if (formData.reason.trim().length < 10) {
@@ -87,37 +97,50 @@ const AdoptionForm = () => {
     }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
 
-    // Clear field-specific error as user types
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
     }
   };
 
+  // Submit application
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setApiError("");
 
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      return;
+    }
 
     setLoading(true);
-    const token = localStorage.getItem("token");
-    const API_BASE_URL =
-      import.meta.env?.VITE_API_URL || "http://localhost:4000";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/adoptions`, {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
+
+        // Send cookie automatically via browser
+        credentials: "include",
+
         body: JSON.stringify({
           petId,
           petName,
@@ -132,6 +155,7 @@ const AdoptionForm = () => {
       }
 
       alert("Adoption application submitted successfully!");
+
       navigate("/");
     } catch (err) {
       setApiError(err.message);
@@ -146,6 +170,7 @@ const AdoptionForm = () => {
         <h2>
           Adoption Application for <span className="highlight">{petName}</span>
         </h2>
+
         <p className="subtitle">
           Please fill out the form below to submit your adoption request.
         </p>
@@ -156,6 +181,7 @@ const AdoptionForm = () => {
           {/* Full Name */}
           <div className="form-group">
             <label htmlFor="fullName">Full Name</label>
+
             <input
               id="fullName"
               type="text"
@@ -165,6 +191,7 @@ const AdoptionForm = () => {
               placeholder="John Doe"
               className={errors.fullName ? "input-error" : ""}
             />
+
             {errors.fullName && (
               <span className="field-error">{errors.fullName}</span>
             )}
@@ -174,6 +201,7 @@ const AdoptionForm = () => {
             {/* Email */}
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
+
               <input
                 id="email"
                 type="email"
@@ -183,6 +211,7 @@ const AdoptionForm = () => {
                 placeholder="example@mail.com"
                 className={errors.email ? "input-error" : ""}
               />
+
               {errors.email && (
                 <span className="field-error">{errors.email}</span>
               )}
@@ -191,6 +220,7 @@ const AdoptionForm = () => {
             {/* Phone */}
             <div className="form-group">
               <label htmlFor="phone">Phone Number</label>
+
               <input
                 id="phone"
                 type="tel"
@@ -200,6 +230,7 @@ const AdoptionForm = () => {
                 placeholder="017xxxxxxxx"
                 className={errors.phone ? "input-error" : ""}
               />
+
               {errors.phone && (
                 <span className="field-error">{errors.phone}</span>
               )}
@@ -209,6 +240,7 @@ const AdoptionForm = () => {
           {/* Address */}
           <div className="form-group">
             <label htmlFor="address">Address</label>
+
             <input
               id="address"
               type="text"
@@ -218,6 +250,7 @@ const AdoptionForm = () => {
               placeholder="Street address, City"
               className={errors.address ? "input-error" : ""}
             />
+
             {errors.address && (
               <span className="field-error">{errors.address}</span>
             )}
@@ -227,6 +260,7 @@ const AdoptionForm = () => {
             {/* Housing Type */}
             <div className="form-group">
               <label htmlFor="housingType">Housing Type</label>
+
               <select
                 id="housingType"
                 name="housingType"
@@ -234,14 +268,17 @@ const AdoptionForm = () => {
                 onChange={handleChange}
               >
                 <option value="House">House</option>
+
                 <option value="Apartment">Apartment</option>
+
                 <option value="Rented">Rented</option>
               </select>
             </div>
 
-            {/* Has Other Pets */}
+            {/* Other Pets */}
             <div className="form-group">
               <label htmlFor="hasOtherPets">Do you have other pets?</label>
+
               <select
                 id="hasOtherPets"
                 name="hasOtherPets"
@@ -249,6 +286,7 @@ const AdoptionForm = () => {
                 onChange={handleChange}
               >
                 <option value="No">No</option>
+
                 <option value="Yes">Yes</option>
               </select>
             </div>
@@ -257,6 +295,7 @@ const AdoptionForm = () => {
           {/* Reason */}
           <div className="form-group">
             <label htmlFor="reason">Why do you want to adopt {petName}?</label>
+
             <textarea
               id="reason"
               name="reason"
@@ -265,13 +304,14 @@ const AdoptionForm = () => {
               onChange={handleChange}
               placeholder="Tell us about your household and experience with pets (minimum 10 characters)..."
               className={errors.reason ? "input-error" : ""}
-            ></textarea>
+            />
+
             {errors.reason && (
               <span className="field-error">{errors.reason}</span>
             )}
           </div>
 
-          <button type="submit" className="submit-btn" disabled={loading}>
+          <button type="submit" className="submit-btn" logged={loading}>
             {loading ? "Submitting..." : "Submit Application"}
           </button>
         </form>

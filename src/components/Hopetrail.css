@@ -188,6 +188,48 @@
   color: var(--ht-white);
 }
 
+.ht-search-box {
+  width: 100%;
+  margin: 0 0 30px 0;
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+
+.ht-search-input {
+  width: 100%;
+  height: 50px;
+  padding: 0 18px;
+
+  background: #ffffff;
+  border: 1px solid #ddd6e5;
+  border-radius: 10px;
+
+  font-size: 15px;
+  color: #333;
+
+  outline: none;
+  box-sizing: border-box;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ht-search-input::placeholder {
+  color: #999;
+}
+
+.ht-search-input:focus {
+  border-color: #6504b5;
+  box-shadow: 0 0 0 3px rgba(101, 4, 181, 0.12);
+}
+
+.ht-search-layout {
+  margin-top: 10px;
+}
+
 /* Grid & Cards */
 .ht-grid {
   display: grid;
