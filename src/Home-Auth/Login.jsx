@@ -30,8 +30,8 @@ function Login({ onClose }) {
         alert(data.message || "Login failed");
         return;
       }
-
-      localStorage.setItem("user", JSON.stringify(data.user));
+      //comment korlam localstorage theke user data delete korar jonno
+      //localStorage.setItem("user", JSON.stringify(data.user));
 
       alert("Login successful");
       onClose();
