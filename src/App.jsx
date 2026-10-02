@@ -15,6 +15,11 @@ import OtherPets from "./pages/OtherPets.jsx";
 import Adopt from "./pages/Adopt.jsx";
 import Quiz from "./pages/Quiz.jsx";
 import Footer from "./Header-Footer/Footer.jsx";
+//new
+import AboutUs from "./pages/AboutUs.jsx";
+import PetCare from "./pages/PetCare.jsx";
+import ContactUs from "./pages/ContactUs.jsx";
+
 
 //faiza admin
 import AdminDashboard from "./pages/AdminDashboard.jsx";
@@ -62,16 +67,20 @@ function App() {
         <Route path="/cats/:id" element={<PetDetails />} />
         <Route path="/favorites" element={<Favorites />} />
         {/* ===== FROM SHOVA ===== */}
-        {/* Your Dogs page */}
+        {/*Dogs page */}
         <Route path="/dogs-and-puppies" element={<DogsAndPuppies />} />
-        {/* Your Cats page */}
+        {/*Cats page */}
         <Route path="/cats-and-kittens" element={<CatsAndKittens />} />
-        {/* Your Other Pets page */}
+        {/*Other Pets page */}
         <Route path="/other-pets" element={<OtherPets />} />
-        {/* Your Adopt page */}
+        {/* Adopt page */}
         <Route path="/adopt" element={<Adopt />} />
-        {/* Your Quiz page */}
+        {/*Quiz page */}
         <Route path="/quiz" element={<Quiz />} />
+        <Route path="/about" element={<AboutUs />} />
+        {/* Shova new pages */}
+        <Route path="/pet-care" element={<PetCare />} />
+        <Route path="/contact" element={<ContactUs />} />
         {/* Faiza Admin Dashboard */}
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* Faiza User Profile */}
