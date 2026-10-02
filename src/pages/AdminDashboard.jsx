@@ -14,6 +14,23 @@ function AdminDashboard() {
   const [authLoading, setAuthLoading] = useState(true);
 
   // -----------------------------------------
+  // HANDLE BROWSER BACK CACHE
+  // -----------------------------------------
+  useEffect(() => {
+    const handlePageShow = (event) => {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
+
+  // -----------------------------------------
   // VERIFY USER FROM BACKEND
   // -----------------------------------------
   useEffect(() => {
@@ -35,9 +52,10 @@ function AdminDashboard() {
             credentials: "include",
           });
 
-          localStorage.removeItem("user");
+          //localStorage.removeItem("user"); //user data localstorage rakhbo na
 
-          window.location.href = "/";
+          //window.location.href = "/";
+          window.location.replace("/");
           return;
         }
 
@@ -47,9 +65,10 @@ function AdminDashboard() {
       } catch (error) {
         console.error("Authentication error:", error);
 
-        localStorage.removeItem("user");
+        //localStorage.removeItem("user");//user data localstorage rakhbo na
 
-        window.location.href = "/";
+        //window.location.href = "/";
+        window.location.replace("/");
       }
     };
 
@@ -162,9 +181,10 @@ function AdminDashboard() {
       console.error("Logout error:", error);
     }
 
-    localStorage.removeItem("user");
+    //localStorage.removeItem("user"); //user data localstorage rakhbo na
 
-    window.location.href = "/";
+    //window.location.href = "/";
+    window.location.replace("/");
   };
 
   return (
