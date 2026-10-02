@@ -1,6 +1,5 @@
 import { Link } from "react-router";
 import "./pages.css";
-import DogIcon from "../assets/dogIconImg.png";
 
 function DogsAndPuppies() {
   return (
