@@ -1,0 +1,141 @@
+.fav-page {
+  padding: 40px 20px;
+  background-color: #f9fafb;
+  min-height: 80vh;
+}
+
+.fav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.fav-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.fav-section-title {
+  color: #6512db;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.fav-subtitle {
+  color: #4b5563;
+  font-size: 16px;
+}
+
+.fav-loading-text,
+.fav-error-msg {
+  text-align: center;
+  color: #e11d48;
+  font-weight: 500;
+  padding: 20px;
+}
+
+.fav-empty-box {
+  text-align: center;
+  padding: 50px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.fav-empty-box p {
+  color: #4b5563;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.fav-browse-link {
+  display: inline-block;
+  background-color: #6512db;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.fav-browse-link:hover {
+  background-color: #520fb3;
+}
+
+/* Grid Layout */
+.fav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.fav-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.fav-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+}
+
+.fav-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.fav-card-content {
+  padding: 16px;
+}
+
+.fav-pet-name {
+  font-size: 20px;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.fav-pet-info {
+  color: #4b5563;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.fav-details-btn {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  padding: 10px;
+  background: #6512db;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.fav-details-btn:hover {
+  background: #520fb3;
+}
+
+@media (max-width: 480px) {
+  .fav-page {
+    padding: 20px 10px;
+  }
+
+  .fav-section-title {
+    font-size: 22px;
+  }
+
+  .fav-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

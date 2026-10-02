@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import petRoutes from "./routes/PetRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
 import adoptionRoutes from "./routes/adoptionRoutes.js";
+import favoriteRoutes from "./routes/favoriteRoutes.js";
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use("/api/users", userRoutes); // new for profile
 
 app.use("/api/pets", petRoutes); // Attoja
 app.use("/api/adoptions", adoptionRoutes); // Attoja
+app.use("/api/favorites", favoriteRoutes); // Attoja
 app.use("/api/quiz", quizRoutes); // Shova
 
 // database connection

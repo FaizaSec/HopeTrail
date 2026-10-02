@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router";
-import { fetchPetById } from "../data/petsData";
 import "./Hopetrail.css";
 
 const Row = ({ icon, children, wide }) => (
   <div className={`ht-detail-row ${wide ? "is-wide" : ""}`}>
-    <span className="ht-detail-icon">{icon}</span>
-
+    {icon && <span className="ht-detail-icon">{icon}</span>}
     <span>{children}</span>
   </div>
 );
 
 const Check = ({ label, value }) => (
-  <div className="ht-detail-row" style={{ paddingLeft: "30px" }}>
+  <div className="ht-detail-row">
     <span>
       <strong>{label}:</strong> {value ? "Yes" : "No"}
     </span>
@@ -25,39 +23,65 @@ function PetDetails() {
 
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userRole, setUserRole] = useState(null); // Added for admin/user role check
+
+  const API_BASE_URL = import.meta.env?.VITE_API_URL || "http://localhost:4000";
 
   useEffect(() => {
     let ignore = false;
 
     setLoading(true);
 
-    fetchPetById(id)
-      .then((data) => {
-        if (!ignore) {
-          setPet(data);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
+    // Fetch Pet Details & User Profile concurrently
+    const fetchData = async () => {
+      try {
+        const petRes = await fetch(`${API_BASE_URL}/api/pets/${id}`);
+        const petData = await petRes.json();
 
+        if (!petRes.ok) {
+          throw new Error(petData.message || "Failed to fetch pet");
+        }
+
+        // Fetch user profile to check role
+        const userRes = await fetch(`${API_BASE_URL}/api/users/profile`, {
+          credentials: "include",
+        });
+
+        if (userRes.ok) {
+          const userData = await userRes.json();
+          if (!ignore) {
+            setUserRole(userData.user?.role);
+          }
+        }
+
+        if (!ignore) {
+          setPet(petData);
+        }
+      } catch (err) {
+        console.error(err);
         if (!ignore) {
           setPet(null);
         }
-      })
-      .finally(() => {
+      } finally {
         if (!ignore) {
           setLoading(false);
         }
-      });
+      }
+    };
+
+    fetchData();
 
     return () => {
       ignore = true;
     };
-  }, [id]);
+  }, [id, API_BASE_URL]);
 
   // Start adoption
   const handleStartAdoption = () => {
-    if (!pet) {
+    if (!pet) return;
+
+    if (userRole === "admin") {
+      alert("Admins are not allowed to submit adoption applications!");
       return;
     }
 
@@ -96,7 +120,14 @@ function PetDetails() {
   return (
     <div className="ht-page">
       {/* Back link */}
-      <div className="ht-container ht-details-header">
+      <div
+        className="ht-container ht-details-header"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Link
           to={pet.species === "cat" ? "/cats" : "/dogs"}
           className="ht-back-link"
@@ -109,7 +140,7 @@ function PetDetails() {
         <div className="ht-details">
           {/* Pet Image */}
           <div className="ht-details-media">
-            <img src={pet.image} alt={pet.name} />
+            <img src={pet.image || pet.thumbnail} alt={pet.name} />
           </div>
 
           {/* Pet Information */}
@@ -132,8 +163,11 @@ function PetDetails() {
 
             <div className="ht-detail-grid">
               <Row>
-                <strong>{pet.age}</strong>{" "}
-                <span className="ht-detail-sub">({pet.ageRange})</span>
+                <strong>{pet.age}</strong>
+
+                {pet.ageRange && (
+                  <span className="ht-detail-sub">({pet.ageRange})</span>
+                )}
               </Row>
 
               <Row>
@@ -141,8 +175,11 @@ function PetDetails() {
               </Row>
 
               <Row>
-                <strong>{pet.size}</strong>{" "}
-                <span className="ht-detail-sub">({pet.weightRange})</span>
+                <strong>{pet.size}</strong>
+
+                {pet.weightRange && (
+                  <span className="ht-detail-sub">({pet.weightRange})</span>
+                )}
               </Row>
             </div>
 
@@ -156,9 +193,9 @@ function PetDetails() {
             {/* Behavior */}
             <p className="ht-section-title ht-section-spaced">Behavior</p>
 
+            {/* Personality */}
             <Row>
-              <strong>Personality</strong>
-              <br />
+              <strong>Personality:</strong>{" "}
               {pet.personality ? pet.personality.join(", ") : "Not specified"}
             </Row>
 
@@ -180,13 +217,22 @@ function PetDetails() {
             <Check label="Vaccinated" value={pet.vaccinated} />
 
             {/* Adoption */}
-            <button
-              type="button"
-              onClick={handleStartAdoption}
-              className="ht-adopt-btn ht-section-spaced"
-            >
-              Start {pet.name}'s adoption
-            </button>
+            {userRole === "admin" ? (
+              <p
+                className="ht-section-spaced"
+                style={{ color: "red", fontWeight: "bold" }}
+              >
+                Admins are not allowed to submit adoption applications.
+              </p>
+            ) : (
+              <button
+                type="button"
+                onClick={handleStartAdoption}
+                className="ht-adopt-btn ht-section-spaced"
+              >
+                Start {pet.name}'s adoption
+              </button>
+            )}
           </div>
         </div>
       </div>

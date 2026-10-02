@@ -32,7 +32,7 @@ const AdoptionForm = () => {
       return;
     }
 
-    // backend chech if the user logged in or not
+    // backend check if the user logged in or not
     const checkAuth = async () => {
       try {
         const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
@@ -43,10 +43,19 @@ const AdoptionForm = () => {
         if (!response.ok) {
           alert("Please sign in first to adopt a pet!");
           navigate("/");
+          return;
+        }
+
+        const user = await response.json();
+
+        if (user.role === "admin") {
+          alert("Admins are not allowed to submit adoption applications!");
+          navigate("/");
+          return;
         }
       } catch (err) {
         console.error("Auth check failed:", err);
-        navigate("/login");
+        navigate("/");
       }
     };
 
@@ -268,9 +277,7 @@ const AdoptionForm = () => {
                 onChange={handleChange}
               >
                 <option value="House">House</option>
-
                 <option value="Apartment">Apartment</option>
-
                 <option value="Rented">Rented</option>
               </select>
             </div>
@@ -286,7 +293,6 @@ const AdoptionForm = () => {
                 onChange={handleChange}
               >
                 <option value="No">No</option>
-
                 <option value="Yes">Yes</option>
               </select>
             </div>
@@ -311,7 +317,7 @@ const AdoptionForm = () => {
             )}
           </div>
 
-          <button type="submit" className="submit-btn" logged={loading}>
+          <button type="submit" className="submit-btn" disabled={loading}>
             {loading ? "Submitting..." : "Submit Application"}
           </button>
         </form>

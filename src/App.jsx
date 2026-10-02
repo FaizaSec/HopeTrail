@@ -6,6 +6,7 @@ import HomePage from "./Home-Auth/HomePage.jsx";
 import PetGrid from "./components/PetGrid.jsx";
 import PetDetails from "./components/PetDetails.jsx";
 import AdoptionForm from "./components/AdoptionForm";
+import Favorites from "./components/Favorites";
 
 // ===== FROM SHOVA =====
 import DogsAndPuppies from "./pages/DogsAndPuppies.jsx";
@@ -59,6 +60,7 @@ function App() {
         adoption form
         <Route path="/dogs/:id" element={<PetDetails />} />
         <Route path="/cats/:id" element={<PetDetails />} />
+        <Route path="/favorites" element={<Favorites />} />
         {/* ===== FROM SHOVA ===== */}
         {/* Your Dogs page */}
         <Route path="/dogs-and-puppies" element={<DogsAndPuppies />} />
