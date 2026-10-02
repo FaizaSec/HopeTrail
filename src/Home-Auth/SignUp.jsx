@@ -42,7 +42,7 @@ function SignUp({ onClose }) {
       }
 
       // Save newly created user
-      localStorage.setItem("user", JSON.stringify(data.user));
+      //localStorage.setItem("user", JSON.stringify(data.user));
 
       alert("Account created successfully");
 

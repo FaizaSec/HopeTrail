@@ -12,6 +12,23 @@ function UserProfile() {
   const [applicationsLoading, setApplicationsLoading] = useState(true);
 
   // -----------------------------------------
+  // HANDLE BROWSER BACK CACHE
+  // -----------------------------------------
+  useEffect(() => {
+    const handlePageShow = (event) => {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
+
+  // -----------------------------------------
   // EXISTING LOGIC - User profile ana
   // -----------------------------------------
   useEffect(() => {
@@ -32,8 +49,9 @@ function UserProfile() {
             credentials: "include",
           });
 
-          localStorage.removeItem("user"); //eta delete korte hobe
-          window.location.href = "/";
+          //localStorage.removeItem("user"); //eta delete korte hobe
+          //window.location.href = "/";
+          window.location.replace("/");
           return;
         }
 
@@ -92,10 +110,11 @@ function UserProfile() {
       console.error("Logout error:", error);
     }
 
-    localStorage.removeItem("user"); //etao delete korte hobe
+    //localStorage.removeItem("user"); //etao delete korte hobe
 
-    navigate("/");
-    window.location.reload();
+    //navigate("/");
+    //window.location.reload();
+    window.location.replace("/");
   };
 
   if (!user) {
