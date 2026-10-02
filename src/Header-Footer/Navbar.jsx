@@ -42,7 +42,7 @@ function Navbar() {
             credentials: "include",
           });
 
-          localStorage.removeItem("user");
+          //localStorage.removeItem("user"); //eta lagbe na
           setUser(null);
           return;
         }
@@ -52,11 +52,11 @@ function Navbar() {
 
         // Optional:
         // LocalStorage-eo actual user information update kore rakha
-        localStorage.setItem("user", JSON.stringify(data.user));
+        //localStorage.setItem("user", JSON.stringify(data.user));//eta dorkar nai user data backend theke ashbe
       } catch (error) {
         console.error("Navbar authentication error:", error);
 
-        localStorage.removeItem("user");
+        //localStorage.removeItem("user"); //etao lagbe na
         setUser(null);
       }
     };
@@ -73,6 +73,7 @@ function Navbar() {
 
   // ===== AUTH LOGOUT =====
   const handleLogout = async () => {
+    //eta adou lagbe??
     try {
       await fetch("http://localhost:4000/api/auth/logout", {
         method: "POST",
@@ -82,8 +83,8 @@ function Navbar() {
       console.error("Logout error:", error);
     }
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    //localStorage.removeItem("token");
+    //localStorage.removeItem("user");
 
     setUser(null);
 
@@ -154,7 +155,7 @@ function Navbar() {
         <div className="nav-actions">
           {user ? (
             <>
-              <span>{user.name}</span>
+              {/*<span>{user.name}</span>*/}
 
               {user.role === "admin" ? (
                 <Link to="/admin-dashboard" className="sign-in">
@@ -255,20 +256,20 @@ function Navbar() {
                 const data = await response.json();
 
                 if (!response.ok) {
-                  localStorage.removeItem("user");
-                  localStorage.removeItem("token");
+                  //localStorage.removeItem("user");//local storage the user data rakhbo na
+                  //localStorage.removeItem("token");
                   setUser(null);
                   return;
                 }
 
                 setUser(data.user);
 
-                localStorage.setItem("user", JSON.stringify(data.user));
+                //localStorage.setItem("user", JSON.stringify(data.user));//eta dorkar nai user data backend theke ashbe
               } catch (error) {
                 console.error("Login user fetch error:", error);
 
-                localStorage.removeItem("user");
-                localStorage.removeItem("token");
+                //localStorage.removeItem("user");//eta delete korte hobe
+                //localStorage.removeItem("token");
                 setUser(null);
               }
             };
