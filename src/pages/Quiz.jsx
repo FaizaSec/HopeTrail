@@ -1,10 +1,8 @@
 // ===== FROM SHOVA =====
+
 import { useState, useEffect } from "react";
-
 import { useNavigate } from "react-router";
-
 import PetCard from "../components/PetCard";
-
 import "./pages.css";
 
 function Quiz() {
@@ -17,17 +15,32 @@ function Quiz() {
   const [breeds, setBreeds] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  // GET QUESTIONS
   useEffect(() => {
-    fetch("http://localhost:4000/api/quiz/questions")
-      .then((response) => {
+    fetch("http://localhost:4000/api/quiz/questions", {
+      credentials: "include",
+    })
+      .then(async (response) => {
+        const data = await response.json();
+
+        // Not logged in
+        if (response.status === 401) {
+          alert("Please log in first to take the quiz!");
+          navigate("/");
+          return;
+        }
+
+        // Admin
+        if (response.status === 403) {
+          alert(data.message || "Admins cannot take the quiz.");
+          navigate("/");
+          return;
+        }
+
         if (!response.ok) {
           throw new Error("Failed to fetch questions");
         }
 
-        return response.json();
-      })
-      .then((data) => {
         setQuestions(data);
         setLoading(false);
       })
@@ -35,12 +48,15 @@ function Quiz() {
         console.error("Error fetching questions:", error);
         setLoading(false);
       });
-  }, []);
-
+  }, [navigate]);
+  // GET BREEDS
   useEffect(() => {
     if (questions.length > 0 && current === 4) {
       fetch(
-        `http://localhost:4000/api/quiz/breeds?species=${answers.species}`
+        `http://localhost:4000/api/quiz/breeds?species=${answers.species}`,
+        {
+          credentials: "include",
+        },
       )
         .then((response) => response.json())
         .then((data) => {
@@ -61,7 +77,7 @@ function Quiz() {
   }
 
   const question = questions[current];
-
+  // NEXT QUESTION
   const nextQuestion = async () => {
     if (!answer) return;
 
@@ -72,39 +88,59 @@ function Quiz() {
 
     setAnswers(updatedAnswers);
 
+    // Go to next question
     if (current < questions.length - 1) {
       const next = questions[current + 1];
 
       setCurrent(current + 1);
       setAnswer(updatedAnswers[next.id] || "");
-    } else {
-      try {
-        console.log("WHAT I AM SENDING:", updatedAnswers);
 
-        const response = await fetch(
-          "http://localhost:4000/api/quiz/submit",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              answers: updatedAnswers,
-            }),
-          }
-        );
+      return;
+    }
+    // SUBMIT QUIZ
+    try {
+      console.log("WHAT I AM SENDING:", updatedAnswers);
 
-        const data = await response.json();
+      const response = await fetch("http://localhost:4000/api/quiz/submit", {
+        method: "POST",
 
-        console.log("Recommendations:", data.recommendations);
+        credentials: "include",
 
-        setRecommendations(data.recommendations || []);
-      } catch (error) {
-        console.error("Error submitting quiz:", error);
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          answers: updatedAnswers,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 401) {
+        alert("Please log in first to take the quiz!");
+        navigate("/");
+        return;
       }
+
+      if (response.status === 403) {
+        alert(data.message || "Admins cannot take the quiz.");
+        navigate("/");
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error("Failed to submit quiz");
+      }
+
+      console.log("Recommendations:", data.recommendations);
+
+      setRecommendations(data.recommendations || []);
+    } catch (error) {
+      console.error("Error submitting quiz:", error);
     }
   };
-
+  // PREVIOUS QUESTION
   const previousQuestion = () => {
     if (current > 0) {
       const previous = questions[current - 1];
@@ -115,7 +151,7 @@ function Quiz() {
       navigate("/adopt");
     }
   };
-
+  // ANSWER CHANGE
   const handleAnswerChange = (value) => {
     setAnswer(value);
 
@@ -129,8 +165,7 @@ function Quiz() {
       });
     }
   };
-
-  // SHOW RECOMMENDED PETS AFTER QUIZ
+//result
   if (recommendations.length > 0) {
     return (
       <div className="ht-page">
@@ -159,7 +194,7 @@ function Quiz() {
       </div>
     );
   }
-
+  // QUIZ PAGE
   return (
     <div className="quiz-page">
       <button className="back-button" onClick={previousQuestion}>
@@ -184,7 +219,7 @@ function Quiz() {
               <option key={option} value={option}>
                 {option}
               </option>
-            )
+            ),
           )}
         </select>
 
@@ -195,5 +230,4 @@ function Quiz() {
     </div>
   );
 }
-
 export default Quiz;

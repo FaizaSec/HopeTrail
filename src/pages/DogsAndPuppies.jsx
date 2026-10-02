@@ -1,13 +1,10 @@
 import { Link } from "react-router";
-
 import "./pages.css";
-
 import DogIcon from "../assets/dogIconImg.png";
 
 function DogsAndPuppies() {
   return (
     <div className="pet-info-page">
-      {/* ===== PAGE HEADER ===== */}
       <div className="pet-breadcrumb">
         <Link to="/">Home</Link>
         <span>›</span>
@@ -16,7 +13,6 @@ function DogsAndPuppies() {
 
       <h1>Dog & Puppy Articles & Advice</h1>
 
-      {/* ===== INTRO + QUIZ ===== */}
       <div className="pet-top-section">
         <div className="pet-intro">
           <p>
@@ -41,19 +37,7 @@ function DogsAndPuppies() {
             <h2>Find Your Best Match</h2>
             <p>It only takes 60 seconds!</p>
 
-            <Link
-              to="/quiz"
-              onClick={(e) => {
-                const token = localStorage.getItem("token");
-
-                if (!token) {
-                  e.preventDefault();
-                  alert("Please log in first to take the quiz!");
-                }
-              }}
-            >
-              GET STARTED
-            </Link>
+            <Link to="/quiz">GET STARTED</Link>
           </div>
         </div>
       </div>
