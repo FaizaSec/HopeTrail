@@ -402,6 +402,48 @@
     font-size: 17px;
   }
 }
+/*
+ Other petsss
+*/
+/* Other Pets Articles */
+
+.articles-title {
+  margin-top: 60px;
+  margin-bottom: 30px;
+  font-size: 40px;
+  font-weight: 400;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.article-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.article-card h3 {
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.article-card p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+}
 /* ================================
    PET CARE SERVICES
 ================================ */

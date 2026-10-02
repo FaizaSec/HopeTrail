@@ -41,6 +41,45 @@ function CatsAndKittens() {
           </div>
         </div>
       </div>
+      <h2 className="articles-title">Articles & Advice</h2>
+
+      <div className="articles-grid">
+        <article className="article-card">
+          <h3>Preparing Your Home for a New Cat</h3>
+          <p>
+            Give your new cat a quiet and safe place to adjust. Food, fresh water,
+            a comfortable sleeping area, a litter box, and some toys can help make
+            the transition easier.
+          </p>
+        </article>
+
+        <article className="article-card">
+          <h3>Understanding Cat Behavior</h3>
+          <p>
+            Cats communicate in many ways, including through their posture, tail,
+            ears, and sounds. Understanding these signals can help you recognize
+            when your cat feels comfortable, nervous, or playful.
+          </p>
+        </article>
+
+        <article className="article-card">
+          <h3>Keeping Your Cat Healthy</h3>
+          <p>
+            Regular veterinary care, appropriate vaccinations, nutritious food,
+            fresh water, grooming, and a clean environment all contribute to a
+            cat's overall health and well-being.
+          </p>
+        </article>
+
+        <article className="article-card">
+          <h3>Keeping Indoor Cats Active</h3>
+          <p>
+            Indoor cats still need exercise and mental stimulation. Interactive
+            toys, scratching posts, climbing spaces, and regular playtime can help
+            keep them active and engaged.
+          </p>
+        </article>
+      </div>
     </div>
   );
 }
