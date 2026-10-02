@@ -10,6 +10,7 @@ import petRoutes from "./routes/PetRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
 import adoptionRoutes from "./routes/adoptionRoutes.js";
 import favoriteRoutes from "./routes/favoriteRoutes.js";
+import petCareRoutes from "./routes/petCareRoutes.js"; //new shova
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use("/api/pets", petRoutes); // Attoja
 app.use("/api/adoptions", adoptionRoutes); // Attoja
 app.use("/api/favorites", favoriteRoutes); // Attoja
 app.use("/api/quiz", quizRoutes); // Shova
+app.use("/api/pet-care", petCareRoutes); //Shova
 
 // database connection
 mongoose

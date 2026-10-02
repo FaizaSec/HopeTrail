@@ -402,3 +402,130 @@
     font-size: 17px;
   }
 }
+/* ================================
+   PET CARE SERVICES
+================================ */
+
+.pet-care {
+  margin-top: 60px;
+}
+
+.pet-care h2 {
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+.pet-care-intro {
+  font-size: 19px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  max-width: 800px;
+}
+
+.pet-care-filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.pet-care-filters select {
+  padding: 13px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  font-size: 16px;
+  min-width: 180px;
+}
+
+.pet-care-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.pet-care-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12);
+}
+
+.pet-care-card h3 {
+  font-size: 23px;
+  font-weight: 500;
+  margin: 0 0 12px;
+}
+
+.pet-care-type {
+  display: inline-block;
+  background: #f0e1f8;
+  color: #6500a8;
+  padding: 6px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.pet-care-card p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+
+.pet-care-description {
+  color: #555;
+}
+
+.pet-care-card a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 18px;
+  background: #6500a8;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.pet-care-card a:hover {
+  background: #7100c7;
+}
+
+.pet-care-loading {
+  color: #6500a8;
+  font-size: 18px;
+}
+
+.no-services {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  font-size: 17px;
+}
+
+/* PET CARE ON SMALL SCREENS */
+
+@media (max-width: 900px) {
+  .pet-care-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .pet-care h2 {
+    font-size: 32px;
+  }
+
+  .pet-care-filters {
+    flex-direction: column;
+  }
+
+  .pet-care-filters select {
+    width: 100%;
+  }
+
+  .pet-care-grid {
+    grid-template-columns: 1fr;
+  }
+}
