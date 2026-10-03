@@ -26,13 +26,6 @@ const AdoptionForm = () => {
   const API_BASE_URL = import.meta.env?.VITE_API_URL || "http://localhost:4000";
 
   useEffect(() => {
-    if (!petId) {
-      alert("No pet selected. Redirecting to home page.");
-      navigate("/");
-      return;
-    }
-
-    // backend check if the user logged in or not
     const checkAuth = async () => {
       try {
         const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
@@ -46,10 +39,19 @@ const AdoptionForm = () => {
           return;
         }
 
-        const user = await response.json();
+        const userData = await response.json();
+        const role = userData.user?.role || userData.role;
 
-        if (user.role === "admin") {
+        // Admin check FIRST
+        if (role === "admin") {
           alert("Admins are not allowed to submit adoption applications!");
+          navigate("/");
+          return;
+        }
+
+        // Pet ID check
+        if (!petId) {
+          alert("No pet selected. Please select a pet first.");
           navigate("/");
           return;
         }

@@ -48,18 +48,23 @@
   margin-bottom: 15px;
 }
 
-.fav-browse-link {
-  display: inline-block;
+.fav-browse-link,
+.fav-details-btn {
   background-color: #6512db;
   color: #ffffff;
-  padding: 10px 20px;
-  border-radius: 6px;
   text-decoration: none;
   font-weight: 500;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
 }
 
-.fav-browse-link:hover {
+.fav-browse-link {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 6px;
+}
+
+.fav-browse-link:hover,
+.fav-details-btn:hover {
   background-color: #520fb3;
 }
 
@@ -99,13 +104,13 @@
 .fav-pet-name {
   font-size: 20px;
   color: #1f2937;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
 }
 
 .fav-pet-info {
   color: #4b5563;
   font-size: 14px;
-  margin-bottom: 4px;
+  margin: 0 0 4px;
 }
 
 .fav-details-btn {
@@ -113,16 +118,7 @@
   text-align: center;
   margin-top: 15px;
   padding: 10px;
-  background: #6512db;
-  color: #ffffff;
-  text-decoration: none;
   border-radius: 6px;
-  font-weight: 500;
-  transition: background 0.2s;
-}
-
-.fav-details-btn:hover {
-  background: #520fb3;
 }
 
 @media (max-width: 480px) {

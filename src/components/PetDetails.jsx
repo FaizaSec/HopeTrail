@@ -23,18 +23,18 @@ function PetDetails() {
 
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userRole, setUserRole] = useState(null); // Added for admin/user role check
+  const [userRole, setUserRole] = useState(null);
 
   const API_BASE_URL = import.meta.env?.VITE_API_URL || "http://localhost:4000";
 
   useEffect(() => {
     let ignore = false;
 
-    setLoading(true);
-
-    // Fetch Pet Details & User Profile concurrently
     const fetchData = async () => {
       try {
+        setLoading(true);
+
+        // Fetch pet details
         const petRes = await fetch(`${API_BASE_URL}/api/pets/${id}`);
         const petData = await petRes.json();
 
@@ -42,25 +42,30 @@ function PetDetails() {
           throw new Error(petData.message || "Failed to fetch pet");
         }
 
-        // Fetch user profile to check role
+        // Fetch logged-in user's profile
         const userRes = await fetch(`${API_BASE_URL}/api/users/profile`, {
           credentials: "include",
         });
 
-        if (userRes.ok) {
-          const userData = await userRes.json();
-          if (!ignore) {
-            setUserRole(userData.user?.role);
-          }
-        }
-
         if (!ignore) {
+          if (userRes.ok) {
+            const userData = await userRes.json();
+
+            // Backend response: { user: {...} }
+            setUserRole(userData.user?.role || null);
+          } else {
+            // Not logged in
+            setUserRole(null);
+          }
+
           setPet(petData);
         }
       } catch (err) {
         console.error(err);
+
         if (!ignore) {
           setPet(null);
+          setUserRole(null);
         }
       } finally {
         if (!ignore) {
@@ -79,11 +84,6 @@ function PetDetails() {
   // Start adoption
   const handleStartAdoption = () => {
     if (!pet) return;
-
-    if (userRole === "admin") {
-      alert("Admins are not allowed to submit adoption applications!");
-      return;
-    }
 
     navigate("/adopt-form", {
       state: {
@@ -193,7 +193,6 @@ function PetDetails() {
             {/* Behavior */}
             <p className="ht-section-title ht-section-spaced">Behavior</p>
 
-            {/* Personality */}
             <Row>
               <strong>Personality:</strong>{" "}
               {pet.personality ? pet.personality.join(", ") : "Not specified"}
@@ -206,7 +205,6 @@ function PetDetails() {
 
             <p className="ht-section-title">Health</p>
 
-            {/* Medical Condition */}
             <Row>
               <strong>Medical Condition:</strong>{" "}
               {pet.medicalCondition || "Healthy"}
@@ -220,7 +218,10 @@ function PetDetails() {
             {userRole === "admin" ? (
               <p
                 className="ht-section-spaced"
-                style={{ color: "red", fontWeight: "bold" }}
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                }}
               >
                 Admins are not allowed to submit adoption applications.
               </p>
