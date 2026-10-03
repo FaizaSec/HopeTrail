@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import "./Hopetrail.css";
 
@@ -22,11 +22,13 @@ function PetCard({ pet, index }) {
 
   // Check whether this pet is already a favorite
   useEffect(() => {
+    let isMounted = true;
+
     const checkFavorite = async () => {
       if (!favoritePetId) return;
 
       try {
-        // Prothome user profile check kore nibe je user admin kina
+        // First check whether the user is an admin
         const profileRes = await fetch(`${API_BASE_URL}/api/users/profile`, {
           credentials: "include",
         });
@@ -34,9 +36,12 @@ function PetCard({ pet, index }) {
         if (profileRes.ok) {
           const profileData = await profileRes.json();
           const userRole = profileData.user?.role || profileData.role;
+
           if (userRole === "admin") {
-            setIsFavorite(false);
-            return; // Admin hole favorites check korar dorkar nei, heart unfilled thakbe
+            if (isMounted) {
+              setIsFavorite(false);
+            }
+            return;
           }
         }
 
@@ -49,7 +54,9 @@ function PetCard({ pet, index }) {
         });
 
         if (response.status === 401 || response.status === 403) {
-          setIsFavorite(false);
+          if (isMounted) {
+            setIsFavorite(false);
+          }
           return;
         }
 
@@ -57,23 +64,32 @@ function PetCard({ pet, index }) {
 
         const data = await response.json();
 
-        const favoriteList = data.favorites || [];
+        const favoriteList = Array.isArray(data) ? data : data.favorites || [];
 
         const alreadyFavorite = favoriteList.some((fav) => {
           const favoritePet = fav.petId;
 
           if (!favoritePet) return false;
 
-          return favoritePet._id === pet?._id || favoritePet.id === pet?.id;
+          return (
+            String(favoritePet._id || "") === String(pet?._id || "") ||
+            String(favoritePet.id || "") === String(pet?.id || "")
+          );
         });
 
-        setIsFavorite(alreadyFavorite);
+        if (isMounted) {
+          setIsFavorite(alreadyFavorite);
+        }
       } catch (error) {
         console.error("Error checking favorite:", error);
       }
     };
 
     checkFavorite();
+
+    return () => {
+      isMounted = false;
+    };
   }, [favoritePetId, pet?._id, pet?.id, API_BASE_URL]);
 
   // Add / Remove Favorite
@@ -108,7 +124,7 @@ function PetCard({ pet, index }) {
       // Admin cannot use favorites
       if (role === "admin") {
         alert("You need to be a user to add pets to your favorites!");
-        setIsFavorite(false); // Ensure heart stays unfilled
+        setIsFavorite(false);
         return;
       }
 
@@ -137,10 +153,10 @@ function PetCard({ pet, index }) {
         throw new Error(data.message || "Failed to toggle favorite");
       }
 
-      setIsFavorite(data.isFavorite);
+      setIsFavorite(Boolean(data.isFavorite));
     } catch (error) {
       console.error("Error toggling favorite:", error);
-      alert(error.message);
+      alert(error.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }

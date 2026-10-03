@@ -48,7 +48,7 @@ const Favorites = () => {
         console.error(err);
         setError("Something went wrong while loading favorites.");
       } finally {
-        setLoading(false); // Loading sesh kore dewa holo
+        setLoading(false);
       }
     };
 
