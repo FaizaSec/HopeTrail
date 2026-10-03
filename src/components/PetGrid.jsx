@@ -5,14 +5,6 @@ import PetCard from "./PetCard";
 import { fetchAllPets } from "../data/petsData";
 import "./Hopetrail.css";
 
-const INITIAL_FILTERS = {
-  breed: "All",
-  age: [],
-  size: [],
-  gender: [],
-  area: "All",
-};
-
 const getInitialFilters = () => ({
   breed: "All",
   age: [],
@@ -67,19 +59,29 @@ function PetGrid({ species, heading, eyebrow, noun }) {
   const searchText = useMemo(() => search.trim().toLowerCase(), [search]);
 
   // Breed options
-  const breeds = useMemo(() => {
-    return [...new Set(pets.map((pet) => pet.breed).filter(Boolean))].sort();
-  }, [pets]);
+  const breeds = useMemo(
+    () => [...new Set(pets.map((pet) => pet.breed).filter(Boolean))].sort(),
+    [pets],
+  );
 
   // Area options
-  const areas = useMemo(() => {
-    return [...new Set(pets.map((pet) => pet.location).filter(Boolean))].sort();
-  }, [pets]);
+  const areas = useMemo(
+    () => [...new Set(pets.map((pet) => pet.location).filter(Boolean))].sort(),
+    [pets],
+  );
+
+  // Update a single filter
+  const updateFilter = (key, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
   // Toggle age / size / gender
   const toggleValue = (key, value) => {
     setFilters((prev) => {
-      const current = prev[key] || [];
+      const current = prev[key];
 
       const next = current.includes(value)
         ? current.filter((item) => item !== value)
@@ -92,31 +94,31 @@ function PetGrid({ species, heading, eyebrow, noun }) {
     });
   };
 
+  // Reset all filters and search
+  const handleReset = () => {
+    setFilters(getInitialFilters());
+    setSearch("");
+  };
+
   // Search + filter pets
   const filteredPets = useMemo(() => {
     return pets.filter((pet) => {
-      // Search by name or breed
       const searchMatch =
         !searchText ||
         pet.name?.toLowerCase().includes(searchText) ||
         pet.breed?.toLowerCase().includes(searchText);
 
-      // Breed
       const breedMatch = filters.breed === "All" || pet.breed === filters.breed;
 
-      // Age
       const ageMatch =
         filters.age.length === 0 || filters.age.includes(pet.age);
 
-      // Size
       const sizeMatch =
         filters.size.length === 0 || filters.size.includes(pet.size);
 
-      // Gender
       const genderMatch =
         filters.gender.length === 0 || filters.gender.includes(pet.gender);
 
-      // Area
       const areaMatch = filters.area === "All" || pet.location === filters.area;
 
       return (
@@ -172,23 +174,10 @@ function PetGrid({ species, heading, eyebrow, noun }) {
             breeds={breeds}
             areas={areas}
             filters={filters}
-            onBreedChange={(breed) => {
-              setFilters((prev) => ({
-                ...prev,
-                breed,
-              }));
-            }}
-            onAreaChange={(area) => {
-              setFilters((prev) => ({
-                ...prev,
-                area,
-              }));
-            }}
+            onBreedChange={(breed) => updateFilter("breed", breed)}
+            onAreaChange={(area) => updateFilter("area", area)}
             onToggleValue={toggleValue}
-            onReset={() => {
-              setFilters(getInitialFilters());
-              setSearch("");
-            }}
+            onReset={handleReset}
           />
 
           {/* Pet Grid */}

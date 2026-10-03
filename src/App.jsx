@@ -6,7 +6,7 @@ import HomePage from "./Home-Auth/HomePage.jsx";
 import PetGrid from "./components/PetGrid.jsx";
 import PetDetails from "./components/PetDetails.jsx";
 import AdoptionForm from "./components/AdoptionForm";
-import Favorites from "./components/Favorites";
+import Favorites from "./components/Favorites"; // new
 
 // ===== FROM SHOVA =====
 import DogsAndPuppies from "./pages/DogsAndPuppies.jsx";
@@ -19,7 +19,6 @@ import Footer from "./Header-Footer/Footer.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 import PetCare from "./pages/PetCare.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
-
 
 //faiza admin
 import AdminDashboard from "./pages/AdminDashboard.jsx";
@@ -65,7 +64,7 @@ function App() {
         adoption form
         <Route path="/dogs/:id" element={<PetDetails />} />
         <Route path="/cats/:id" element={<PetDetails />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/favorites" element={<Favorites />} /> // attoja new
         {/* ===== FROM SHOVA ===== */}
         {/*Dogs page */}
         <Route path="/dogs-and-puppies" element={<DogsAndPuppies />} />

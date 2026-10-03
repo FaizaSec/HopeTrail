@@ -1,5 +1,6 @@
 import React from "react";
 import "./Hopetrail.css";
+
 function Sidebar({
   breeds,
   areas,
@@ -12,130 +13,100 @@ function Sidebar({
   const ageOptions = ["Baby", "Young", "Adult", "Senior"];
   const sizeOptions = ["Small", "Medium", "Large"];
   const genderOptions = ["Male", "Female"];
+
+  const renderCheckboxes = (type, options) => (
+    <div className="ht-checkbox-row">
+      {options.map((option) => (
+        <label
+          key={option}
+          className={`ht-chip ${
+            filters[type].includes(option) ? "is-active" : ""
+          }`}
+        >
+          <input
+            type="checkbox"
+            checked={filters[type].includes(option)}
+            onChange={() => onToggleValue(type, option)}
+          />
+          {option}
+        </label>
+      ))}
+    </div>
+  );
+
   return (
     <aside className="ht-sidebar">
-      {" "}
       <div className="ht-sidebar-header">
-        {" "}
-        <h2>Filter the trail</h2>{" "}
+        <h2>Filter the trail</h2>
+
         <button type="button" className="ht-reset-btn" onClick={onReset}>
-          {" "}
-          Reset{" "}
-        </button>{" "}
-      </div>{" "}
-      {/* Search Area */}{" "}
+          Reset
+        </button>
+      </div>
+
+      {/* Search Area */}
       <div className="ht-filter-group">
-        {" "}
         <label className="ht-filter-label" htmlFor="area-select">
-          {" "}
-          Area in Dhaka{" "}
-        </label>{" "}
+          Area in Dhaka
+        </label>
+
         <select
           id="area-select"
           className="ht-select"
           value={filters.area}
           onChange={(e) => onAreaChange(e.target.value)}
         >
-          {" "}
-          <option value="All"> All areas </option>{" "}
+          <option value="All">All areas</option>
+
           {areas.map((area) => (
             <option key={area} value={area}>
-              {" "}
-              {area}{" "}
+              {area}
             </option>
-          ))}{" "}
-        </select>{" "}
-      </div>{" "}
-      {/* Breed */}{" "}
+          ))}
+        </select>
+      </div>
+
+      {/* Breed */}
       <div className="ht-filter-group">
-        {" "}
         <label className="ht-filter-label" htmlFor="breed-select">
-          {" "}
-          Breed{" "}
-        </label>{" "}
+          Breed
+        </label>
+
         <select
           id="breed-select"
           className="ht-select"
           value={filters.breed}
           onChange={(e) => onBreedChange(e.target.value)}
         >
-          {" "}
-          <option value="All"> All breeds </option>{" "}
+          <option value="All">All breeds</option>
+
           {breeds.map((breed) => (
             <option key={breed} value={breed}>
-              {" "}
-              {breed}{" "}
+              {breed}
             </option>
-          ))}{" "}
-        </select>{" "}
-      </div>{" "}
-      {/* Age */}{" "}
+          ))}
+        </select>
+      </div>
+
+      {/* Age */}
       <div className="ht-filter-group">
-        {" "}
-        <span className="ht-filter-label"> Age </span>{" "}
-        <div className="ht-checkbox-row">
-          {" "}
-          {ageOptions.map((age) => (
-            <label
-              key={age}
-              className={`ht-chip ${filters.age.includes(age) ? "is-active" : ""}`}
-            >
-              {" "}
-              <input
-                type="checkbox"
-                checked={filters.age.includes(age)}
-                onChange={() => onToggleValue("age", age)}
-              />{" "}
-              {age}{" "}
-            </label>
-          ))}{" "}
-        </div>{" "}
-      </div>{" "}
-      {/* Size */}{" "}
+        <span className="ht-filter-label">Age</span>
+        {renderCheckboxes("age", ageOptions)}
+      </div>
+
+      {/* Size */}
       <div className="ht-filter-group">
-        {" "}
-        <span className="ht-filter-label"> Size </span>{" "}
-        <div className="ht-checkbox-row">
-          {" "}
-          {sizeOptions.map((size) => (
-            <label
-              key={size}
-              className={`ht-chip ${filters.size.includes(size) ? "is-active" : ""}`}
-            >
-              {" "}
-              <input
-                type="checkbox"
-                checked={filters.size.includes(size)}
-                onChange={() => onToggleValue("size", size)}
-              />{" "}
-              {size}{" "}
-            </label>
-          ))}{" "}
-        </div>{" "}
-      </div>{" "}
-      {/* Gender */}{" "}
+        <span className="ht-filter-label">Size</span>
+        {renderCheckboxes("size", sizeOptions)}
+      </div>
+
+      {/* Gender */}
       <div className="ht-filter-group">
-        {" "}
-        <span className="ht-filter-label"> Gender </span>{" "}
-        <div className="ht-checkbox-row">
-          {" "}
-          {genderOptions.map((gender) => (
-            <label
-              key={gender}
-              className={`ht-chip ${filters.gender.includes(gender) ? "is-active" : ""}`}
-            >
-              {" "}
-              <input
-                type="checkbox"
-                checked={filters.gender.includes(gender)}
-                onChange={() => onToggleValue("gender", gender)}
-              />{" "}
-              {gender}{" "}
-            </label>
-          ))}{" "}
-        </div>{" "}
-      </div>{" "}
+        <span className="ht-filter-label">Gender</span>
+        {renderCheckboxes("gender", genderOptions)}
+      </div>
     </aside>
   );
 }
+
 export default Sidebar;
