@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; // attoja
+import React from "react"; // attoja
 //import Navbar from "../Header-Footer/Navbar.jsx";//removing this one also by Shova
 //import Footer from "../Header-Footer/Footer.jsx";
 
@@ -9,64 +9,43 @@ import { Link, useNavigate } from "react-router"; // attoja: useNavigate import 
 import "./HomePage.css";
 
 function HomePage() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const API_BASE_URL = import.meta.env?.VITE_API_URL || "http://localhost:4000";
 
-  // Check user role once on component mount
-  useEffect(() => {
-    let isMounted = true; // prevent memory leak / duplicate updates
+  // Check user role when Favorites is clicked
+  const handleFavoritesClick = async (e) => {
+    e.preventDefault();
 
-    const fetchUser = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
-          method: "GET",
-          credentials: "include",
-        });
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-
-          if (isMounted) {
-            setUser(data.user);
-          }
-        } else {
-          if (isMounted) {
-            setUser(null);
-          }
-        }
-      } catch (err) {
-        console.error("Failed to fetch user:", err);
-        if (isMounted) {
-          setUser(null);
-        }
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+      // User is not logged in
+      if (!response.ok) {
+        alert("Please sign in first to view your favorites!");
+        return;
       }
-    };
 
-    fetchUser();
+      const data = await response.json();
+      const currentUser = data.user || data;
 
-    // Check again periodically so login/logout changes are detected
-    //const interval = setInterval(fetchUser, 1000); //k ei line likhsos
+      // Admin cannot access Favorites
+      if (currentUser.role === "admin") {
+        alert("To view the favorite list, you have to be a general user.");
+        return;
+      }
 
-    return () => {
-      isMounted = false;
-    };
-  }, [API_BASE_URL]);
-
-  const handleFavoritesClick = (e) => {
-    if (loading) return;
-
-    // Jodi user log-in na thake ba admin na hoy
-    if (!user) {
-      e.preventDefault();
-      alert("Please sign in first to view your favorites!");
-      navigate("/");
+      // Normal user
+      navigate("/favorites");
+    } catch (error) {
+      console.error("Failed to check user:", error);
+      alert("Something went wrong. Please try again.");
     }
   };
 
@@ -102,21 +81,18 @@ function HomePage() {
             <p>Cats</p>
           </Link>
 
-          {/* Favorite e jawar jonno card (Hidden for admin, Attoja did this) */}
-          {!loading && (!user || user.role !== "admin") && (
-            <Link
-              to="/favorites"
-              className="favorite-card"
-              onClick={handleFavoritesClick}
-              /* attoja: added click handler for unauthenticated users */
-            >
-              <svg viewBox="0 0 24 24" fill="none" className="fav-svg-icon">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-              </svg>
+          {/* Favorites */}
+          <Link
+            to="/favorites"
+            className="favorite-card"
+            onClick={handleFavoritesClick}
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="fav-svg-icon">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
 
-              <p>Favorites</p>
-            </Link>
-          )}
+            <p>Favorites</p>
+          </Link>
         </div>
       </section>
 
