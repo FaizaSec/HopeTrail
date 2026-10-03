@@ -32,9 +32,16 @@ function HomePage() {
           if (isMounted) {
             setUser(data.user);
           }
+        } else {
+          if (isMounted) {
+            setUser(null);
+          }
         }
       } catch (err) {
         console.error("Failed to fetch user:", err);
+        if (isMounted) {
+          setUser(null);
+        }
       } finally {
         if (isMounted) {
           setLoading(false);
@@ -43,6 +50,9 @@ function HomePage() {
     };
 
     fetchUser();
+
+    // Check again periodically so login/logout changes are detected
+    const interval = setInterval(fetchUser, 1000);
 
     return () => {
       isMounted = false;
@@ -93,7 +103,7 @@ function HomePage() {
           </Link>
 
           {/* Favorite e jawar jonno card (Hidden for admin, Attoja did this) */}
-          {(!user || user.role !== "admin") && (
+          {!loading && (!user || user.role !== "admin") && (
             <Link
               to="/favorites"
               className="favorite-card"
