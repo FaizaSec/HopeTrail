@@ -52,7 +52,7 @@ function HomePage() {
     fetchUser();
 
     // Check again periodically so login/logout changes are detected
-    const interval = setInterval(fetchUser, 1000);
+    //const interval = setInterval(fetchUser, 1000); //k ei line likhsos
 
     return () => {
       isMounted = false;
