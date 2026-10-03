@@ -41,17 +41,7 @@ function Adopt() {
 
             <p>It only takes 60 seconds!</p>
 
-            <Link
-              to="/quiz"
-              onClick={(e) => {
-                const token = localStorage.getItem("token");
-
-                if (!token) {
-                  e.preventDefault();
-                  alert("Please log in first to take the quiz!");
-                }
-              }}
-            >
+            <Link to="/quiz">
               GET STARTED
             </Link>
 
@@ -63,7 +53,56 @@ function Adopt() {
       <h2 className="about-title">
         About Pet Adoption
       </h2>
+      <div className="adoption-info"> 
+        <div className="adoption-card"> 
+          <h3>🏠 Prepare Your Home</h3> 
+          <p> Make sure your home is safe and comfortable before
+             bringing a pet home. Prepare food, water, bedding and
+              a suitable space for your new companion.
+          </p> 
+        </div> 
+        <div className="adoption-card"> 
+          <h3>❤️ Be Ready for a Commitment</h3>
+           <p> Pets need love, attention and daily care.
+             Adoption is a long-term responsibility, so make sure you
+              are ready to care for your pet throughout its life. 
+           </p> 
+        </div> 
+        <div className="adoption-card">
+           <h3>🍽️ Provide Proper Care</h3> 
+           <p> Give your pet suitable food, fresh water, exercise,
+             grooming and regular veterinary care according to their needs.
+           </p> 
+        </div>
+        <div className="adoption-card"> 
+          <h3>👨‍👩‍👧 Consider Your Family</h3>
+          <p> Everyone in the household should be comfortable with the decision
+             to adopt and understand the responsibilities of caring for a pet. 
+          </p>
+        </div> 
+      </div> 
+      <div className="adoption-caution"> 
+        <h3>⚠️ Important Things to Remember</h3> 
+        <ul>
+           <li> Do not adopt a pet only because it looks cute.
+           </li> 
+             
+          <li> Learn about the pet's age, health, behavior and special 
+            needs before adopting. 
+          </li> 
+          <li> Give your new pet time and patience while adjusting to its new home.
+          </li>
 
+          <li> Never abandon a pet when caring for it becomes difficult. 
+          </li>
+
+          <li> Contact a veterinarian if your pet becomes sick or shows unusual behavior.
+          </li>
+
+          <li> Always treat your pet with kindness, patience and respect.
+          </li> 
+        </ul> 
+      </div> 
     </div>
   );
 }
